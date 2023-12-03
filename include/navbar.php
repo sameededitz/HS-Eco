@@ -107,7 +107,16 @@
                                     <a href="track.php"><img src="img/icon-track.png" alt=""><span>Track Your Order</span></a>
                                 </div>
                                 <div class="element element-account hidden-md hidden-lg">
-                                    <a href="#">My Account</a>
+                                    <!-- <a href="#">My Account</a> -->
+                                    <a id="label3" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                        aria-haspopup="true" aria-expanded="false">
+                                        <span>My Account</span>
+                                        <span class="ion-ios-arrow-down f-10 e-arrow" style="margin-left: 0px;"></span>
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="label3">
+                                        <li><a href="myaccount.php">Login</a></li>
+                                        <li><a href="register.php">Register</a></li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
@@ -116,8 +125,8 @@
                                 <div class="element hidden-xs hidden-sm">
                                     <a href="#">Buyer Protection </a>
                                 </div>
-                                <div class="element hidden-xs hidden-sm">
-                                    <a href="#">Help</a>
+                                <div class="element ">
+                                    <a href="faq.php">Help</a>
                                 </div>
                                 <!-- <div class="element hidden-xs hidden-sm">
                                     <a href="#"><img src="img/icon-phone.png" alt=""><span>Save big on our app!</span></a>
