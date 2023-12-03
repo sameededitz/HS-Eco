@@ -113,7 +113,7 @@
                                         <span>My Account</span>
                                         <span class="ion-ios-arrow-down f-10 e-arrow" style="margin-left: 0px;"></span>
                                     </a>
-                                    <ul class="dropdown-menu" aria-labelledby="label3">
+                                    <ul class="dropdown-menu" aria-labelledby="label3" style="border-radius: 8px;">
                                         <li><a href="myaccount.php">Login</a></li>
                                         <li><a href="register.php">Register</a></li>
                                     </ul>
