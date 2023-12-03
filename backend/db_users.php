@@ -17,7 +17,9 @@ if (isset($_POST['user-login'])) {
             header("location: ../home.php");
             $message[] = 'Login Successfully';
         } else {
-            $message[] = 'Password Incorrect';
+            echo "password incorrect";
+            // $message[] = 'Password Incorrect';
+            // header("location: ../myaccount.php");
         }
     } else {
         echo 'no record found';

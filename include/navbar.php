@@ -90,7 +90,7 @@ session_start();
             <div class="topbar">
                 <div class="container container-240">
                     <div class="row flex">
-                        <div class="col-md-6 col-sm-6 col-xs-4 flex-left">
+                        <div class="col-md-6 col-sm-6 col-xs-6 flex-left">
                             <div class="topbar-left">
                                 <div class="element element-store hidden-xs hidden-sm">
                                     <a id="label1" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
@@ -126,7 +126,7 @@ session_start();
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6 col-sm-6 col-xs-8 flex-right">
+                        <div class="col-md-6 col-sm-6 col-xs-6 flex-right">
                             <div class="topbar-right">
                                 <div class="element hidden-xs hidden-sm">
                                     <a href="#">Buyer Protection </a>
