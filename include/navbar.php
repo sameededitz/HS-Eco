@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -235,8 +238,7 @@
                             <div class="right-panel">
                                 <div class="header-sub-element row">
                                     <?php
-                                    session_start();
-                                    
+                                    if($_SESSION)
                                     ?>
                                     <a class="hidden-xs hidden-sm" href="myaccount.php"><img src="img/icon-user.png" alt=""></a>
                                     <a href="wishlist.php"><img src="img/icon-heart.png" alt=""></a>

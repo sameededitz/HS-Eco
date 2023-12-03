@@ -1,29 +1,25 @@
 <?php
 include_once 'database/config.php';
 
-session_start();
+if (isset($_POST['user-login'])) {
+    $u_useremail = $_POST["u-useremail"];
+    $u_password = $_POST["u-pswd"];
 
-if(isset($_POST['register-user'])){
-    $u_username = $_POST["u-username"];
-    $u_email = $_POST["u-email"];
-    $u_password = $_POST["u-password"];
+    $check_login = "SELECT * FROM `w-users` WHERE (`u_username` = '$u_useremail' OR `u_email` = '$u_useremail')";
+    $check_login_query = mysqli_query($conn, $check_login);
 
-    $error_msg = array();
-    if(empty($u_username) OR empty($u_email) OR empty($u_password)){
-        array_push($error_msg,"All Fields are required");
-    }
-    if(!filter_var($u_email,FILTER_VALIDATE_EMAIL)){
-        array_push($error_msg,"Email Invalid");
-    }
-    if(strlen($u_password) < 8){
-        array_push($error_msg,"Password Must Be 8 characters Long");
-    }
-    if(count($error_msg)>0){
-        foreach ($error_msg as $error_msg) {
-            $_SESSION['error_message'] = $error_msg;
+    if (mysqli_num_rows($check_login_query) > 0) {
+        $login_row = mysqli_fetch_assoc($check_login_query);
+        if (password_verify($u_password, $login_row['u_password'])) {
+            session_start();
+            $_SESSION['user_id'] = $login_row['user_id'];
+            header("location: ../home.php");
+            $message[] = 'Login Successfully';
+        } else {
+            $message[] = 'Password Incorrect';
         }
-    }else{
-        echo "working fine ";
+    } else {
+        echo 'no record found';
     }
 }
 ?>
