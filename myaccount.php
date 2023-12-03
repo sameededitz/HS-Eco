@@ -17,7 +17,7 @@ include_once("include/navbar.php");
                 </div>
                 <div class="page-content">
                     <p>Sign in to your account</p>
-                    <form class="login-form" method="post" action="#">
+                    <form class="login-form" method="post" action="backend/db_users.php">
                         <div class="form-group">
                             <label>Username or email address <span class="f-red">*</span></label>
                             <input type="text" id="author" class="form-control bdr" name="comment[author]" value="">
