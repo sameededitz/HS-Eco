@@ -17,14 +17,14 @@ include_once("include/navbar.php");
                 </div>
                 <div class="page-content">
                     <p>Create your very own account</p>
-                    
+
                     <?php
                     include_once 'backend/database/config.php';
                     if (isset($_POST['register-user'])) {
                         $u_username = $_POST["u-username"];
                         $u_email = $_POST["u-email"];
                         $u_password = $_POST["u-password"];
-                        $u_passwordhash = password_hash($u_password,PASSWORD_DEFAULT);
+                        $u_passwordhash = password_hash($u_password, PASSWORD_DEFAULT);
 
                         $error_msg = array();
                         if (empty($u_username) or empty($u_email) or empty($u_password)) {
@@ -38,20 +38,20 @@ include_once("include/navbar.php");
                         }
                         if (count($error_msg) > 0) {
                             foreach ($error_msg as $error_msg) {
-                                echo '<div class="alert alert-danger">'.$error_msg.'</div>';
+                                echo '<div class="alert alert-danger">' . $error_msg . '</div>';
                             }
                         } else {
                             $check_query = "SELECT * FROM `w-users` WHERE `u_email`= '$u_email'";
-                            $check_query_sql = mysqli_query($conn,$check_query);
-                            
-                            if(mysqli_num_rows($check_query_sql) > 0){
+                            $check_query_sql = mysqli_query($conn, $check_query);
+
+                            if (mysqli_num_rows($check_query_sql) > 0) {
                                 echo '<div class="alert alert-danger">User Already Exist</div>';
-                            }else{
+                            } else {
                                 $insert_query = "INSERT INTO `w-users`(`u_username`,`u_email`,`u_password`) VALUES('$u_username','$u_email','$u_passwordhash')";
-                                $insert_query_sql = mysqli_query($conn,$insert_query);
-                                // echo '<div class="alert alert-success">You are Registered Successfully</div>';
-                                // $message[] = 'You are Registered Successfully';
-                                
+                                $insert_query_sql = mysqli_query($conn, $insert_query);
+                                echo "<script>
+                                window.location.href = 'http://localhost/HS-Ecomm/myaccount.php';
+                                </script>";
                             }
                         }
                     }
