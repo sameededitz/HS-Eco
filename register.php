@@ -25,47 +25,45 @@ include_once("include/navbar.php");
                             <label>Email address <span class="f-red">*</span></label>
                             <input type="email" id="author2" class="form-control bdr" name="u-email" value="">
                             <label>Password <span class="f-red">*</span></label>
-                            <input type="password" required id="email2" class="form-control bdr" name="u-password" value="">
-                        </div>
-                        <?php
-                        include_once 'backend/database/config.php';
-                        if (isset($_POST['register-user'])) {
-                            $u_username = $_POST["u-username"];
-                            $u_email = $_POST["u-email"];
-                            $u_password = $_POST["u-password"];
-                            $u_passwordhash = password_hash($u_password, PASSWORD_DEFAULT);
+                            <input type="password" required id="email2" class="form-control bdr" style="margin-bottom: 3%;" name="u-password" value="">
+                            <?php
+                            include_once 'backend/database/config.php';
+                            if (isset($_POST['register-user'])) {
+                                $u_username = $_POST["u-username"];
+                                $u_email = $_POST["u-email"];
+                                $u_password = $_POST["u-password"];
+                                $u_passwordhash = password_hash($u_password, PASSWORD_DEFAULT);
 
-                            $error_msg = array();
-                            if (empty($u_username) or empty($u_email) or empty($u_password)) {
-                                array_push($error_msg, "All Fields are required");
-                            }
-                            if (!filter_var($u_email, FILTER_VALIDATE_EMAIL)) {
-                                array_push($error_msg, "Email Invalid");
-                            }
-                            if (strlen($u_password) < 8) {
-                                array_push($error_msg, "Password Must Be 8 characters Long");
-                            }
-                            if (count($error_msg) > 0) {
-                                foreach ($error_msg as $error_msg) {
-                                    echo '<div class="alert alert-danger">' . $error_msg . '</div>';
+                                $error_msg = array();
+                                if (empty($u_username) or empty($u_email) or empty($u_password)) {
+                                    array_push($error_msg, "All Fields are required");
                                 }
-                            } else {
-                                $check_query = "SELECT * FROM `w-users` WHERE `u_email`= '$u_email'";
-                                $check_query_sql = mysqli_query($conn, $check_query);
-
-                                if (mysqli_num_rows($check_query_sql) > 0) {
-                                    echo '<div class="alert alert-danger">User Already Exist</div>';
+                                if (!filter_var($u_email, FILTER_VALIDATE_EMAIL)) {
+                                    array_push($error_msg, "Email Invalid");
+                                }
+                                if (strlen($u_password) < 8) {
+                                    array_push($error_msg, "Password Must Be 8 characters Long");
+                                }
+                                if (count($error_msg) > 0) {
+                                    foreach ($error_msg as $error_msg) {
+                                        echo '<div class="text-danger">' . $error_msg . '</div>';
+                                    }
                                 } else {
-                                    $insert_query = "INSERT INTO `w-users`(`u_username`,`u_email`,`u_password`) VALUES('$u_username','$u_email','$u_passwordhash')";
-                                    $insert_query_sql = mysqli_query($conn, $insert_query);
-                                    echo '<script>window.location.assign("http://localhost/e-com/myaccount.php")</script>';
-                                    // echo '<div class="alert alert-success">You are Registered Successfully</div>';
-                                    // $message[] = 'You are Registered Successfully';
+                                    $check_query = "SELECT * FROM `w-users` WHERE `u_email`= '$u_email'";
+                                    $check_query_sql = mysqli_query($conn, $check_query);
 
+                                    if (mysqli_num_rows($check_query_sql) > 0) {
+                                        echo '<div class="text-danger">User Already Exist</div>';
+                                    } else {
+                                        $insert_query = "INSERT INTO `w-users`(`u_username`,`u_email`,`u_password`) VALUES('$u_username','$u_email','$u_passwordhash')";
+                                        $insert_query_sql = mysqli_query($conn, $insert_query);
+                                        echo '<script>window.location.assign("http://localhost/HS-Ecomm/myaccount.php")</script>';
+
+                                    }
                                 }
                             }
-                        }
-                        ?>
+                            ?>
+                        </div>
                         <div class="flex lr">
                             <button type="submit" name="register-user" class="btn btn-submit btn-gradient">
                                 Register

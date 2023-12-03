@@ -17,16 +17,41 @@ include_once("include/navbar.php");
                 </div>
                 <div class="page-content">
                     <p>Sign in to your account</p>
-                    <form class="login-form" method="post" action="backend/db_users.php">
+                    <?php
+                    include_once 'backend/database/config.php';
+                    if (isset($_POST['user-login'])) {
+                        $u_name = $_POST['u-user'];
+                        $u_pswd = $_POST['u-pswd'];
+                        $sql = "SELECT * FROM `w-users` WHERE (`u_username` = '{$u_name}' OR `u_email` = '{$u_name}')";
+                        $result = mysqli_query($conn, $sql);
+                        $verify = mysqli_fetch_array($result, MYSQLI_ASSOC);
+                        if ($verify) {
+                            if (password_verify($u_pswd, $verify['u_password'])) {
+                                if (mysqli_num_rows($result) > 0) {
+                                    session_start();
+                                    $_SESSION['user-id'] = $verify['user_id'];
+                                    $_SESSION['user-name'] = $verify['u_username'];
+                                    echo '<script>window.location.assign("http://localhost/HS-Ecomm/home.php")</script>';
+                                } else {
+                                    echo "mysqli_error()";
+                                }
+                            } else {
+                                echo "NOT OKAY";
+                            }
+                        }
+                    }
+
+                    ?>
+                    <form class="login-form" method="post" action="#">
                         <div class="form-group">
                             <label>Username or email address <span class="f-red">*</span></label>
-                            <input type="text" id="author" class="form-control bdr" name="comment[author]" value="">
+                            <input type="text" id="author" class="form-control bdr" name="u-user" value="">
                             <label>Password <span class="f-red">*</span></label>
-                            <input type="email" id="email" class="form-control bdr" name="comment[email]" value="">
+                            <input type="password" id="email" class="form-control bdr" name="u-pswd" value="">
                             <a href="#" class="text-primary " style="text-align: left;">Forget Password?</a>
                         </div>
                         <div class="flex lr">
-                            <button type="submit" class="btn btn-submit btn-gradient">
+                            <button type="submit" name="user-login" class="btn btn-submit btn-gradient">
                                 Login
                             </button>
                             <div class="checkbox checkbox-default">

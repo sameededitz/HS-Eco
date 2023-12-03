@@ -234,6 +234,10 @@
                         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 v-center header-sub">
                             <div class="right-panel">
                                 <div class="header-sub-element row">
+                                    <?php
+                                    session_start();
+                                    
+                                    ?>
                                     <a class="hidden-xs hidden-sm" href="myaccount.php"><img src="img/icon-user.png" alt=""></a>
                                     <a href="wishlist.php"><img src="img/icon-heart.png" alt=""></a>
                                     <div class="cart">
