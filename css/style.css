@@ -1,3 +1,4 @@
+
 /**
 	
  **/
@@ -24033,7 +24034,12 @@ span.star:before {
 .header-cate ul li:last-child {
   border-right: 0;
 }
-
+.profile-img{
+  width: 90px;
+  height: 90px; 
+  background-position: center;
+  background-size: cover;
+}
 .header-cate ul li a {
   display: -webkit-box;
   /* OLD - iOS 6-, Safari 3.1-6 */

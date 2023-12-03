@@ -32,7 +32,11 @@ include_once("include/navbar.php")
                 <div class="cmt-title text-center abs">
                     <h1 class="oval-bd">My Account</h1>
                 </div>
-                <div class="cmt-form">
+                <form class="cmt-form">
+                    <div class="form-group">
+                        <div class="img-fluid" style=" width: 90px; height: 90px; border-radius: 50%; background-position: center; background-size: cover; background-image: url('https://images.unsplash.com/photo-1679678690998-88c8711cbe5f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxzZWFyY2h8MXx8aG90ZWx8ZW58MHx8MHx8fDA%3D'); ">
+                        </div>
+                    </div>
                     <div class="login-form">
                         <div class="form-group">
                             <div class="row">
@@ -61,7 +65,7 @@ include_once("include/navbar.php")
                             </button>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>
