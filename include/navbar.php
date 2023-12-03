@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="css/slick-theme.css">
     <link rel="stylesheet" href="css/owl.theme.default.min.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-slider.css">
+    <script src="https://kit.fontawesome.com/35430ed787.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -64,6 +66,20 @@
             </ul>
         </div>
     </div>
+    <?php
+        if (isset($message)) {
+            foreach ($message as $message) {
+                echo '
+                <div class="ero-msg">
+                    <div class="errorr-message">
+                    <span>' . $message . '</span>
+                    <i class="fa-regular fa-circle-xmark" onclick="this.parentElement.remove();"></i>
+                    </div>
+                </div>
+            ';
+            }
+        }
+    ?>
     <!-- end push menu-->
     <div class="wrappage">
         <header id="header" class="header-v5">
@@ -88,7 +104,7 @@
                                     </ul>
                                 </div>
                                 <div class="element hidden-xs hidden-sm">
-                                    <a href="#"><img src="img/icon-track.png" alt=""><span>Track Your Order</span></a>
+                                    <a href="track.php"><img src="img/icon-track.png" alt=""><span>Track Your Order</span></a>
                                 </div>
                                 <div class="element element-account hidden-md hidden-lg">
                                     <a href="#">My Account</a>
@@ -207,17 +223,15 @@
                                 <a href="#">umbrella</a>
                                 <a href="#">hair accessories </a>
                                 <a href="#">diamond</a>
-                                <a href="#"> painting slime</a>
-                                <a href="#">sunglasses</a>
                             </div>
                         </div>
-                        <div class="col-lg-3  col-md-3 col-sm-6 col-xs-6 v-center header-sub">
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 v-center header-sub">
                             <div class="right-panel">
                                 <div class="header-sub-element row">
-                                    <a class="hidden-xs hidden-sm" href=""><img src="img/icon-user.png" alt=""></a>
-                                    <a href="#"><img src="img/icon-heart.png" alt=""></a>
+                                    <a class="hidden-xs hidden-sm" href="myaccount.php"><img src="img/icon-user.png" alt=""></a>
+                                    <a href="wishlist.php"><img src="img/icon-heart.png" alt=""></a>
                                     <div class="cart">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="label5">
+                                        <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="label5">
                                             <img src="img/icon-cart.png" alt="">
                                             <span class="count cart-count">0</span>
                                         </a>
@@ -225,7 +239,7 @@
                                             <ul class="mini-products-list">
                                                 <li class="item-cart">
                                                     <div class="product-img-wrap">
-                                                        <a href="#"><img src="img/cart1.jpg" alt="" class="img-reponsive"></a>
+                                                        <a href=""><img src="img/cart1.jpg" alt="" class="img-reponsive"></a>
                                                     </div>
                                                     <div class="product-details">
                                                         <div class="inner-left">
@@ -258,8 +272,8 @@
                                                     <span class="price-total">$ 120.00</span>
                                                 </div>
                                                 <div class="button-cart">
-                                                    <a href="#" class="cart-btn btn-viewcart">View Cart</a>
-                                                    <a href="#" class="cart-btn e-checkout btn-gradient">Checkout</a>
+                                                    <a href="cart.php" class="cart-btn btn-viewcart">View Cart</a>
+                                                    <a href="checkout.php" class="cart-btn e-checkout btn-gradient">Checkout</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -508,7 +522,7 @@
                                         <ul class="nav navbar-nav js-menubar">
                                             <li class="level1 active hassub"><a href="home.php">Home</a>
                                             </li>
-                                            <li class="level1 dropdown"><a href="#">Shop<span class="h-ribbon h-pos e-green">sale</span></a>
+                                            <li class="level1 dropdown"><a href="shopleft_sidebar.php">Shop<span class="h-ribbon h-pos e-green">sale</span></a>
                                                 <span class="plus js-plus-icon"></span>
                                             </li>
                                             <li class="level1 active dropdown hassub">
@@ -518,10 +532,10 @@
                                                 <a href="#">Pages</a>
                                                 <span class="plus js-plus-icon"></span>
                                                 <ul class="dropdown-menu menu-level-1">
-                                                    <li class="level2"><a href="aboutus.html" title="About Us ">About Us </a></li>
-                                                    <li class="level2"><a href="contactus.html" title="Contact">Contact</a></li>
-                                                    <li class="level2"><a href="faq.html" title="FAQs">FAQs</a></li>
-                                                    <li class="level2"><a href="commingsoon.html" title="Coming Soon">Coming Soon</a></li>
+                                                    <li class="level2"><a href="aboutus.php" title="About Us ">About Us </a></li>
+                                                    <li class="level2"><a href="contactus.php" title="Contact">Contact</a></li>
+                                                    <li class="level2"><a href="faq.php" title="FAQs">FAQs</a></li>
+                                                    <li class="level2"><a href="commingsoon.php" title="Coming Soon">Coming Soon</a></li>
                                                 </ul>
                                             </li>
                                             <li class="level1 active dropdown">

@@ -95,7 +95,36 @@ html {
 body::-webkit-scrollbar{
   display: none;
 }
-
+.ero-msg{
+  position: sticky;
+  background: linear-gradient(122deg, #c26af5, #54f0ff);
+  top: 0;
+  z-index: 999;
+}
+.errorr-message{
+  /* position: sticky; */
+  /* left: 50%;
+  transform: translateX(-50%); */
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  justify-content: space-between;
+}
+.errorr-message span{
+  font-size: 2rem;
+  color: #fff;
+}
+.errorr-message i{
+  font-size: 2rem;
+  color: var(--red);
+  cursor: pointer;
+}
+.errorr-message i:hover{
+  color: var(--black);
+}
 
 body {
   margin: 0;

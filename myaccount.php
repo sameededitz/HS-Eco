@@ -43,12 +43,15 @@ include_once("include/navbar.php");
                 </div>
                 <div class="page-content">
                     <p>Create your very own account</p>
+                    <!-- <div class="alert alert-danger">Email Invalid</div> -->
                     <form class="login-form" method="post" action="#">
                         <div class="form-group">
-                            <label>Username or email address <span class="f-red">*</span></label>
-                            <input type="text" id="author2" class="form-control bdr" name="comment[author]" value="">
+                            <label>Username <span class="f-red">*</span></label>
+                            <input type="text" required id="author2" class="form-control bdr" name="comment[author]" value="">
+                            <label>Email address <span class="f-red">*</span></label>
+                            <input type="email" required id="author2" class="form-control bdr" name="comment[author]" value="">
                             <label>Password <span class="f-red">*</span></label>
-                            <input type="email" id="email2" class="form-control bdr" name="comment[email]" value="">
+                            <input type="password" required id="email2" class="form-control bdr" name="comment[email]" value="">
                         </div>
                         <div class="flex lr">
                             <button type="submit" class="btn btn-submit btn-gradient">
