@@ -13,6 +13,7 @@ if (isset($_POST['user-login'])) {
         if (password_verify($u_password, $login_row['u_password'])) {
             session_start();
             $_SESSION['user_id'] = $login_row['user_id'];
+            $_SESSION['user_name'] = $login_row['u_username'];
             header("location: ../home.php");
             $message[] = 'Login Successfully';
         } else {

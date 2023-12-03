@@ -238,9 +238,18 @@ session_start();
                             <div class="right-panel">
                                 <div class="header-sub-element row">
                                     <?php
-                                    if($_SESSION)
+                                    $sess_username = $_SESSION['user_name'];
+                                    if ($sess_username) { 
+                                        
+                                        ?>
+                                        <a class="hidden-xs hidden-sm" href="myaccount.php"><? echo $sess_username ?></a>
+                                    <?php
+                                    }else{
+                                        echo 'eror';
+                                    }
                                     ?>
-                                    <a class="hidden-xs hidden-sm" href="myaccount.php"><img src="img/icon-user.png" alt=""></a>
+                                    
+                                    <!-- <a class="hidden-xs hidden-sm" href="myaccount.php"><img src="img/icon-user.png" alt=""></a> -->
                                     <a href="wishlist.php"><img src="img/icon-heart.png" alt=""></a>
                                     <div class="cart">
                                         <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="label5">
