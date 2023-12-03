@@ -17,18 +17,57 @@ include_once("include/navbar.php");
                 </div>
                 <div class="page-content">
                     <p>Create your very own account</p>
+                    
+                    <?php
+                    include_once 'backend/database/config.php';
+                    if (isset($_POST['register-user'])) {
+                        $u_username = $_POST["u-username"];
+                        $u_email = $_POST["u-email"];
+                        $u_password = $_POST["u-password"];
+                        $u_passwordhash = password_hash($u_password,PASSWORD_DEFAULT);
+
+                        $error_msg = array();
+                        if (empty($u_username) or empty($u_email) or empty($u_password)) {
+                            array_push($error_msg, "All Fields are required");
+                        }
+                        if (!filter_var($u_email, FILTER_VALIDATE_EMAIL)) {
+                            array_push($error_msg, "Email Invalid");
+                        }
+                        if (strlen($u_password) < 8) {
+                            array_push($error_msg, "Password Must Be 8 characters Long");
+                        }
+                        if (count($error_msg) > 0) {
+                            foreach ($error_msg as $error_msg) {
+                                echo '<div class="alert alert-danger">'.$error_msg.'</div>';
+                            }
+                        } else {
+                            $check_query = "SELECT * FROM `w-users` WHERE `u_email`= '$u_email'";
+                            $check_query_sql = mysqli_query($conn,$check_query);
+                            
+                            if(mysqli_num_rows($check_query_sql) > 0){
+                                echo '<div class="alert alert-danger">User Already Exist</div>';
+                            }else{
+                                $insert_query = "INSERT INTO `w-users`(`u_username`,`u_email`,`u_password`) VALUES('$u_username','$u_email','$u_passwordhash')";
+                                $insert_query_sql = mysqli_query($conn,$insert_query);
+                                // echo '<div class="alert alert-success">You are Registered Successfully</div>';
+                                // $message[] = 'You are Registered Successfully';
+                                
+                            }
+                        }
+                    }
+                    ?>
                     <!-- <div class="alert alert-danger">Email Invalid</div> -->
-                    <form class="login-form" method="post" action="#">
+                    <form class="login-form" method="post" action="register.php">
                         <div class="form-group">
                             <label>Username <span class="f-red">*</span></label>
-                            <input type="text" required id="author2" class="form-control bdr" name="comment[author]" value="">
+                            <input type="text" required id="author2" class="form-control bdr" name="u-username" value="">
                             <label>Email address <span class="f-red">*</span></label>
-                            <input type="email" required id="author2" class="form-control bdr" name="comment[author]" value="">
+                            <input type="email" id="author2" class="form-control bdr" name="u-email" value="">
                             <label>Password <span class="f-red">*</span></label>
-                            <input type="password" required id="email2" class="form-control bdr" name="comment[email]" value="">
+                            <input type="password" required id="email2" class="form-control bdr" name="u-password" value="">
                         </div>
                         <div class="flex lr">
-                            <button type="submit" class="btn btn-submit btn-gradient">
+                            <button type="submit" name="register-user" class="btn btn-submit btn-gradient">
                                 Register
                             </button>
                         </div>

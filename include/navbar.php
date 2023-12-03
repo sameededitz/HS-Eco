@@ -66,20 +66,18 @@
             </ul>
         </div>
     </div>
-    <?php
-        if (isset($message)) {
-            foreach ($message as $message) {
-                echo '
-                <div class="ero-msg">
-                    <div class="errorr-message">
-                    <span>' . $message . '</span>
-                    <i class="fa-regular fa-circle-xmark" onclick="this.parentElement.remove();"></i>
-                    </div>
-                </div>
-            ';
-            }
-        }
-    ?>
+    <!-- // if (isset($message)) {
+        //     foreach ($message as $message) {
+        //         echo '
+        //         <div class="ero-msg">
+        //             <div class="errorr-message">
+        //             <span>' . $message . '</span>
+        //             <i class="fa-regular fa-circle-xmark" onclick="this.parentElement.remove();"></i>
+        //             </div>
+        //         </div>
+        //     ';
+        //     }
+        // } -->
     <!-- end push menu-->
     <div class="wrappage">
         <header id="header" class="header-v5">
@@ -108,8 +106,7 @@
                                 </div>
                                 <div class="element element-account hidden-md hidden-lg">
                                     <!-- <a href="#">My Account</a> -->
-                                    <a id="label3" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                        aria-haspopup="true" aria-expanded="false">
+                                    <a id="label3" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                                         <span>My Account</span>
                                         <span class="ion-ios-arrow-down f-10 e-arrow" style="margin-left: 0px;"></span>
                                     </a>
