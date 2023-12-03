@@ -13,34 +13,32 @@ include_once("include/navbar.php");
         <div class="row flex pd" style="justify-content: center;">
             <div class="account-element bd-7">
                 <div class="cmt-title text-center abs">
-                    <h1 class="page-title v1">Login</h1>
+                    <h1 class="page-title v1">Register</h1>
                 </div>
                 <div class="page-content">
-                    <p>Sign in to your account</p>
+                    <p>Create your very own account</p>
+                    <!-- <div class="alert alert-danger">Email Invalid</div> -->
                     <form class="login-form" method="post" action="#">
                         <div class="form-group">
-                            <label>Username or email address <span class="f-red">*</span></label>
-                            <input type="text" id="author" class="form-control bdr" name="comment[author]" value="">
+                            <label>Username <span class="f-red">*</span></label>
+                            <input type="text" required id="author2" class="form-control bdr" name="comment[author]" value="">
+                            <label>Email address <span class="f-red">*</span></label>
+                            <input type="email" required id="author2" class="form-control bdr" name="comment[author]" value="">
                             <label>Password <span class="f-red">*</span></label>
-                            <input type="email" id="email" class="form-control bdr" name="comment[email]" value="">
-                            <a href="#" class="text-primary " style="text-align: left;">Forget Password?</a>
+                            <input type="password" required id="email2" class="form-control bdr" name="comment[email]" value="">
                         </div>
                         <div class="flex lr">
                             <button type="submit" class="btn btn-submit btn-gradient">
-                                Login
+                                Register
                             </button>
-                            <div class="checkbox checkbox-default">
-                                <input id="remember" type="checkbox" value="yes" class="">
-                                <label for="remember"><span class="chk-span" tabindex="2"></span>Remember me</label>
-                            </div>
                         </div>
                     </form>
                     <span class="flex" style="margin-top: 30px;">
                         <span style="margin-right: 10px;">
-                            Don't Have An Account
+                            Already Have An Account
                         </span>
                         <span>
-                            <a href="register.php" class="text-primary">Sign Up?</a>
+                            <a href="myaccount.php" class="text-primary">Sign In?</a>
                         </span>
                     </span>
                 </div>
