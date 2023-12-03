@@ -6,8 +6,8 @@ include_once("include/navbar.php")
         <li><a href="#">Account</a></li>
         <li class="active">Proflie</li>
     </ul>
-    <div class="filter-collection-left hidden-lg hidden-md">
-        <a class="btn">Profile</a>
+    <div class="filter-collection-left hidden-lg hidden-md" style="margin-bottom: 55px; border-radius: 8px;">
+        <a class="btn" style="border-radius: 5px;">Profile</a>
     </div>
     <div class="row shop-colect" style="margin-bottom: 90px;">
         <div class="col-md-3 col-sm-3 col-xs-12 col-left collection-sidebar" id="filter-sidebar">
@@ -47,10 +47,10 @@ include_once("include/navbar.php")
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-6 col-xs-12">
-                                    <input type="text" class="form-control bdr" placeholder="Password *">
+                                    <input type="text" class="form-control bdr" placeholder="Old Password *">
                                 </div>
                                 <div class="col-md-6 col-xs-12">
-                                    <input type="text" class="form-control bdr" placeholder="Check Password *">
+                                    <input type="text" class="form-control bdr" placeholder="New Password *">
                                 </div>
                             </div>
                         </div>
