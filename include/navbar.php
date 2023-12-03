@@ -110,7 +110,13 @@ session_start();
                                 <div class="element element-account hidden-md hidden-lg">
                                     <!-- <a href="#">My Account</a> -->
                                     <a id="label3" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                        <span>My Account</span>
+                                        <?php
+                                        if (!isset($_SESSION['user_name'])) {
+                                            echo '<span>My Account</span>';
+                                        } else {
+                                            echo '<span>' . $_SESSION['user_name'] . '</span>';
+                                        }
+                                        ?>
                                         <span class="ion-ios-arrow-down f-10 e-arrow" style="margin-left: 0px;"></span>
                                     </a>
                                     <ul class="dropdown-menu" aria-labelledby="label3" style="border-radius: 8px;">
@@ -237,19 +243,16 @@ session_start();
                         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 v-center header-sub">
                             <div class="right-panel">
                                 <div class="header-sub-element row">
+                                    <a class="hidden-xs hidden-sm" href="myaccount.php">
+                                    </a>
                                     <?php
-                                    $sess_username = $_SESSION['user_name'];
-                                    if ($sess_username) { 
-                                        
-                                        ?>
-                                        <a class="hidden-xs hidden-sm" href="myaccount.php"><? echo $sess_username ?></a>
-                                    <?php
-                                    }else{
-                                        echo 'eror';
+                                    if (!isset($_SESSION['user_name'])) {
+                                        echo ' <a class="hidden-xs hidden-sm" href="myaccount.php">
+                                        <img src="img/icon-user.png" alt=""></a>';
+                                    } else {
+                                        echo '<a class="hidden-xs hidden-sm" href="profile.php">' . $_SESSION['user_name'] . '</a>';
                                     }
                                     ?>
-                                    
-                                    <!-- <a class="hidden-xs hidden-sm" href="myaccount.php"><img src="img/icon-user.png" alt=""></a> -->
                                     <a href="wishlist.php"><img src="img/icon-heart.png" alt=""></a>
                                     <div class="cart">
                                         <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="label5">
