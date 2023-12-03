@@ -57,9 +57,7 @@ include_once("include/navbar.php");
                                     } else {
                                         $insert_query = "INSERT INTO `w-users`(`u_username`,`u_email`,`u_password`) VALUES('$u_username','$u_email','$u_passwordhash')";
                                         $insert_query_sql = mysqli_query($conn, $insert_query);
-                                        echo '<script>window.location.assign("http://localhost/e-com/myaccount.php")</script>';
-                                        // echo '<div class="alert alert-success">You are Registered Successfully</div>';
-                                        // $message[] = 'You are Registered Successfully';
+                                        echo '<script>window.location.assign("http://localhost/HS-Ecomm/myaccount.php")</script>';
 
                                     }
                                 }
