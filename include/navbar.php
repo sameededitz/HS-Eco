@@ -69,18 +69,20 @@ session_start();
             </ul>
         </div>
     </div>
-    <!-- // if (isset($message)) {
-        //     foreach ($message as $message) {
-        //         echo '
-        //         <div class="ero-msg">
-        //             <div class="errorr-message">
-        //             <span>' . $message . '</span>
-        //             <i class="fa-regular fa-circle-xmark" onclick="this.parentElement.remove();"></i>
-        //             </div>
-        //         </div>
-        //     ';
-        //     }
-        // } -->
+    <?php
+    if (isset($message)) {
+        foreach ($message as $message) {
+            echo '
+            <div class="ero-msg">
+                <div class="errorr-message">
+                <span>' . $message . '</span>
+                <i class="fa-regular fa-circle-xmark" onclick="this.parentElement.remove();"></i>
+                </div>
+            </div>
+        ';
+        }
+    }
+    ?>
     <!-- end push menu-->
     <div class="wrappage">
         <header id="header" class="header-v5">

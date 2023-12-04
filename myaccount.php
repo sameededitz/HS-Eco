@@ -1,4 +1,32 @@
 <?php
+include_once 'backend/database/config.php';
+
+if (isset($_POST['user-login'])) {
+    $u_useremail = $_POST["u-useremail"];
+    $u_password = $_POST["u-pswd"];
+
+    $check_login = "SELECT * FROM `w-users` WHERE (`u_username` = '$u_useremail' OR `u_email` = '$u_useremail')";
+    $check_login_query = mysqli_query($conn, $check_login);
+
+    if (mysqli_num_rows($check_login_query) > 0) {
+        $login_row = mysqli_fetch_assoc($check_login_query);
+        if (password_verify($u_password, $login_row['u_password'])) {
+            session_start();
+            $_SESSION['user_id'] = $login_row['user_id'];
+            $_SESSION['user_name'] = $login_row['u_username'];
+            header("location: home.php");
+            $message[] = 'Login Successfully';
+        } else {
+            // echo "password incorrect";
+            $message[] = 'Password Incorrect';
+            // header("location: ../myaccount.php");
+        }
+    } else {
+        $message[] = 'User not found';
+    }
+}
+?>
+<?php
 include_once("include/navbar.php");
 ?>
 <!-- /header -->
@@ -17,8 +45,8 @@ include_once("include/navbar.php");
                 </div>
                 <div class="page-content">
                     <p>Sign in to your account</p>
-                    <?php
-                    // include_once 'backend/database/config.php';
+                    
+                    <!-- // include_once 'backend/database/config.php';
                     // if (isset($_POST['user-login'])) {
                     //     $u_name = $_POST['u-user'];
                     //     $u_pswd = $_POST['u-pswd'];
@@ -39,10 +67,10 @@ include_once("include/navbar.php");
                     //             echo "NOT OKAY";
                     //         }
                     //     }
-                    // }
+                    // } -->
 
-                    ?>
-                    <form class="login-form" method="post" action="backend/db_users.php">
+                    
+                    <form class="login-form" method="post" action="myaccount.php">
                         <div class="form-group">
                             <label>Username or email address <span class="f-red">*</span></label>
                             <input type="text" id="author" class="form-control bdr" name="u-useremail" value="">
