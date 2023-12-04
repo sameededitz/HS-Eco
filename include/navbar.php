@@ -1,6 +1,3 @@
-<?php
-// session_start();
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,6 +13,7 @@
     <link rel="stylesheet" href="css/owl.theme.default.min.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="css/bootstrap-slider.css">
+    <script src="js/sweet-alert.js"></script>
     <script src="https://kit.fontawesome.com/35430ed787.js" crossorigin="anonymous"></script>
 </head>
 
@@ -73,12 +71,12 @@
     if (isset($message)) {
         foreach ($message as $message) {
             echo '
-            <div class="ero-msg">
-                <div class="errorr-message">
-                <span>' . $message . '</span>
-                <i class="fa-regular fa-circle-xmark" onclick="this.parentElement.remove();"></i>
-                </div>
-            </div>
+            <script>
+            swal({
+                title: "'.$message.'",
+                icon: "error",
+            });
+            </script>
         ';
         }
     }

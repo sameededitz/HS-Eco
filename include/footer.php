@@ -92,6 +92,7 @@
 <script src="js/countdown.js"></script>
 <script src="js/bootstrap-slider.min.js"></script>
 <script src="js/main.js"></script>
+
 </body>
 
 </html>
