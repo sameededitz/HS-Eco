@@ -1,4 +1,11 @@
 <?php
+session_start();
+
+if(!isset($_SESSION['user_id'])){
+    header("location: home.php");
+}
+?>
+<?php
 include_once("include/navbar.php")
 ?>
 <div class="container container-240 shop-collection">

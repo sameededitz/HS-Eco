@@ -1,4 +1,7 @@
 <?php 
+    session_start();
+?>
+<?php 
     include_once("include/navbar.php");
 ?>
         <div class="ads-group v2 bd-slick">
