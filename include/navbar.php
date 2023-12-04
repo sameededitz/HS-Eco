@@ -73,7 +73,7 @@
             echo '
             <script>
             swal({
-                title: "'.$message.'",
+                title: "' . $message . '",
                 icon: "error",
             });
             </script>
@@ -120,8 +120,21 @@
                                         <span class="ion-ios-arrow-down f-10 e-arrow" style="margin-left: 0px;"></span>
                                     </a>
                                     <ul class="dropdown-menu" aria-labelledby="label3" style="border-radius: 8px;">
-                                        <li><a href="myaccount.php">Login</a></li>
-                                        <li><a href="register.php">Register</a></li>
+                                        <?php
+                                        if (!isset($_SESSION['user_name'])) {
+                                            echo '<li><a href="myaccount.php">Login</a></li>
+                                            <li><a href="register.php">Register</a></li>';
+                                        } else {
+                                            echo '
+                                            <li><a href="myaccount.php">Manage Account</a></li>
+                                            <li><a href="myaccount.php">My Orders</a></li>
+                                            <li><a href="myaccount.php">My Wishlist</a></li>
+                                            <li><a href="myaccount.php">My Reviews</a></li>
+                                            <li><a href="myaccount.php">My Cart</a></li>
+                                            <li><a href="backend/db_user_logout.php">Logout</a></li>
+                                            ';
+                                        }
+                                        ?>
                                     </ul>
                                 </div>
                             </div>

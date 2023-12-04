@@ -1,4 +1,40 @@
 <?php
+include_once 'backend/database/config.php';
+if (isset($_POST['register-user'])) {
+    $u_username = $_POST["u-username"];
+    $u_email = $_POST["u-email"];
+    $u_password = $_POST["u-password"];
+    $u_passwordhash = password_hash($u_password, PASSWORD_DEFAULT);
+
+    $message = [];
+    if (empty($u_username) or empty($u_email) or empty($u_password)) {
+        $message[] = 'All Fields are required';
+    }
+    if (!filter_var($u_email, FILTER_VALIDATE_EMAIL)) {
+        $message[] = 'Email Invalid';
+    }
+    if (strlen($u_password) < 8) {
+        $message[] = 'Password Must Be 8 characters Long';
+    }
+
+    if (empty($message)) {
+        $check_query = "SELECT * FROM `w-users` WHERE `u_username`= '$u_username' OR `u_email`='$u_email'";
+        $check_query_sql = mysqli_query($conn, $check_query);
+
+        if (mysqli_num_rows($check_query_sql) > 0) {
+            $message[] = 'Username or Email Already Exist';
+        } else {
+            $insert_query = "INSERT INTO `w-users`(`u_username`,`u_email`,`u_password`) VALUES('$u_username','$u_email','$u_passwordhash')";
+            $insert_query_sql = mysqli_query($conn, $insert_query);
+            header("location: myaccount.php");
+        }
+    } elseif (!array_intersect($message, ['All Fields are required', 'Email Invalid', 'Password Must Be 8 characters Long', 'Username or Email Already Exist'])) {
+        $message[] = 'Server Error';
+    }
+}
+
+?>
+<?php
 include_once("include/navbar.php");
 ?>
 <!-- /header -->
@@ -21,48 +57,11 @@ include_once("include/navbar.php");
                     <form class="login-form" method="post" action="register.php">
                         <div class="form-group">
                             <label>Username <span class="f-red">*</span></label>
-                            <input type="text" required id="author2" class="form-control bdr" name="u-username" value="">
+                            <input type="text" id="author2" class="form-control bdr" name="u-username" value="">
                             <label>Email address <span class="f-red">*</span></label>
                             <input type="email" id="author2" class="form-control bdr" name="u-email" value="">
                             <label>Password <span class="f-red">*</span></label>
-                            <input type="password" required id="email2" class="form-control bdr" style="margin-bottom: 3%;" name="u-password" value="">
-                            <?php
-                            include_once 'backend/database/config.php';
-                            if (isset($_POST['register-user'])) {
-                                $u_username = $_POST["u-username"];
-                                $u_email = $_POST["u-email"];
-                                $u_password = $_POST["u-password"];
-                                $u_passwordhash = password_hash($u_password, PASSWORD_DEFAULT);
-
-                                $error_msg = array();
-                                if (empty($u_username) or empty($u_email) or empty($u_password)) {
-                                    array_push($error_msg, "All Fields are required");
-                                }
-                                if (!filter_var($u_email, FILTER_VALIDATE_EMAIL)) {
-                                    array_push($error_msg, "Email Invalid");
-                                }
-                                if (strlen($u_password) < 8) {
-                                    array_push($error_msg, "Password Must Be 8 characters Long");
-                                }
-                                if (count($error_msg) > 0) {
-                                    foreach ($error_msg as $error_msg) {
-                                        echo '<div class="text-danger">' . $error_msg . '</div>';
-                                    }
-                                } else {
-                                    $check_query = "SELECT * FROM `w-users` WHERE `u_email`= '$u_email'";
-                                    $check_query_sql = mysqli_query($conn, $check_query);
-
-                                    if (mysqli_num_rows($check_query_sql) > 0) {
-                                        echo '<div class="text-danger">User Already Exist</div>';
-                                    } else {
-                                        $insert_query = "INSERT INTO `w-users`(`u_username`,`u_email`,`u_password`) VALUES('$u_username','$u_email','$u_passwordhash')";
-                                        $insert_query_sql = mysqli_query($conn, $insert_query);
-                                        echo '<script>window.location.assign("http://localhost/HS-Ecomm/myaccount.php")</script>';
-                                        
-                                    }
-                                }
-                            }
-                            ?>
+                            <input type="password" id="email2" class="form-control bdr" style="margin-bottom: 3%;" name="u-password" value="">
                         </div>
                         <div class="flex lr">
                             <button type="submit" name="register-user" class="btn btn-submit btn-gradient">
