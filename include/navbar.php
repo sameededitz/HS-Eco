@@ -81,6 +81,20 @@
         }
     }
     ?>
+    <?php
+    if (isset($succes_msg)) {
+        foreach ($succes_msg as $succes_msg) {
+            echo '
+            <script>
+            swal({
+                title: "' . $succes_msg . '",
+                icon: "success",
+            });
+            </script>
+        ';
+        }
+    }
+    ?>
     <!-- end push menu-->
     <div class="wrappage">
         <header id="header" class="header-v5">

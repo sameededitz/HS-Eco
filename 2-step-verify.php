@@ -6,6 +6,30 @@ if (!isset($_SESSION['user_id'])) {
 }
 ?>
 <?php
+include_once 'backend/database/config.php';
+$sql = "SELECT `u_email`,`u_password` FROM `w-users` WHERE `user_id` = '$_SESSION[user_id]'";
+$result = mysqli_query($conn, $sql);
+if ($result) {
+    $row = mysqli_fetch_assoc($result);
+    if (isset($_POST['submit-pass'])) {
+        $u_password = mysqli_real_escape_string($conn, $_POST["pswd"]);
+        if (empty($u_password)) {
+            $message[] = 'All Fields are required';
+        }else{
+            if (mysqli_num_rows($result) > 0) {
+                if (password_verify($u_password, $row['u_password'])) {
+                    $succes_msg[] = "Password Correct";
+                } else {
+                    $message[] = "password incorrect";
+                }
+            } else {
+                echo "FAILED";
+            }
+        }
+    }
+}
+?>
+<?php
 include_once("include/navbar.php")
 ?>
 <div class="container container-240 shop-collection">
@@ -42,26 +66,61 @@ include_once("include/navbar.php")
                 </div>
                 <div class="cmt-form">
                     <?php
-                    include_once 'backend/database/config.php';
-                    $sql = "SELECT `u_email`,`u_password` FROM `w-users` WHERE `user_id` = '$_SESSION[user_id]'";
-                    $result = mysqli_query($conn, $sql);
-                    if ($result) {
-                        $row = mysqli_fetch_assoc($result);
-                        if (isset($_POST['submit'])) {
-                            $u_password = mysqli_real_escape_string($conn, $_POST["pswd"]);
-                            if (mysqli_num_rows($result) > 0) {
-                                if (password_verify($u_password, $row['u_password'])) {
-                                    echo "GOT IT";
-                                } else {
-                                    echo "password incorrect";
-                                }
-                            } else {
-                                echo "FAILED";
-                            }
-                        }
-                    }
+                    if (isset($succes_msg)) {
+                        
+                    ?>
+                        <form method="post">
+                        <div class="login-form">
+                            <div class="form-group">
+                                <div class="row" style="display: flex; justify-content:center;">
+                                    <div class="col-md-6 col-xs-12" style="display: flex; align-items:center; justify-content:center;">
+                                        <h3 class="oval-text-bd text-center">2FA Status</h4>
+                                    </div>
+                                    <div class="col-md-4 col-xs-12" style="display: flex; align-items:center; justify-content:center;">
+                                        <label style="margin-bottom: 0px;">
+                                            <input type="checkbox" class="toggle-checkbox">
+                                            <div class="toggle-switch"></div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group text-center">
+                                <button type="submit" name="submit" class="btn btn-submit btn-gradient">
+                                    Save
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    <?php
+                    }else{
                     ?>
                     <form method="post">
+                        <div class="login-form">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-12 col-xs-12">
+                                        <h3 class="oval-text-bd text-center"><?php echo $row['u_email'] ?></h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-12 col-xs-12">
+                                        <input type="text" name="pswd" class="form-control bdr" placeholder="Enter Your Password *">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group text-center">
+                                <button type="submit" name="submit-pass" class="btn btn-submit btn-gradient">
+                                    SUBMIT
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    <?php
+                    }
+                    ?>
+                    <!-- <form method="post">
                         <div class="login-form">
                             <div class="form-group">
                                 <div class="row">
@@ -78,12 +137,13 @@ include_once("include/navbar.php")
                                 </div>
                             </div>
                             <div class="form-group text-center">
-                                <button type="submit" name="submit" class="btn btn-submit btn-gradient">
+                                <button type="submit" name="submit-pass" class="btn btn-submit btn-gradient">
                                     SUBMIT
                                 </button>
                             </div>
                         </div>
-                    </form>
+                    </form> -->
+                    
                 </div>
             </div>
         </div>
