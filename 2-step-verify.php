@@ -15,7 +15,7 @@ if ($result) {
         $u_password = mysqli_real_escape_string($conn, $_POST["pswd"]);
         if (empty($u_password)) {
             $message[] = 'All Fields are required';
-        }else{
+        } else {
             if (mysqli_num_rows($result) > 0) {
                 if (password_verify($u_password, $row['u_password'])) {
                     $succes_msg[] = "Password Correct";
@@ -23,7 +23,7 @@ if ($result) {
                     $message[] = "password incorrect";
                 }
             } else {
-                echo "FAILED";
+                $message[] = "No Result Found ";
             }
         }
     }
@@ -67,83 +67,102 @@ include_once("include/navbar.php")
                 <div class="cmt-form">
                     <?php
                     if (isset($succes_msg)) {
-                        
                     ?>
                         <form method="post">
-                        <div class="login-form">
-                            <div class="form-group">
-                                <div class="row" style="display: flex; justify-content:center;">
-                                    <div class="col-md-6 col-xs-12" style="display: flex; align-items:center; justify-content:center;">
-                                        <h3 class="oval-text-bd text-center">2FA Status</h4>
-                                    </div>
-                                    <div class="col-md-4 col-xs-12" style="display: flex; align-items:center; justify-content:center;">
-                                        <label style="margin-bottom: 0px;">
-                                            <input type="checkbox" class="toggle-checkbox">
-                                            <div class="toggle-switch"></div>
-                                        </label>
+                            <div class="login-form">
+                                <div class="form-group">
+                                    <div class="row" style="display: flex; justify-content:center;">
+                                        <div class="col-md-6 col-xs-12" style="display: flex; align-items:center; justify-content:center;">
+                                            <h4 class="oval-text-bd text-center">2-Step Verification</h4>
+                                        </div>
+                                        <div class="col-md-4 col-xs-12" style="display: flex; align-items:center; justify-content:center;">
+                                            <label class="switch">
+                                                <input type="checkbox" class="checkbox">
+                                                <div class="slider"></div>
+                                            </label>
+                                            <style>
+                                                .checkbox {
+                                                    display: none;
+                                                }
+
+                                                .slider {
+                                                    width: 60px;
+                                                    height: 30px;
+                                                    background-color: lightgray;
+                                                    border-radius: 20px;
+                                                    overflow: hidden;
+                                                    display: flex;
+                                                    align-items: center;
+                                                    border: 4px solid transparent;
+                                                    transition: .3s;
+                                                    box-shadow: 0 0 10px 0 rgb(0, 0, 0, 0.25) inset;
+                                                    cursor: pointer;
+                                                }
+
+                                                .slider::before {
+                                                    content: '';
+                                                    display: block;
+                                                    width: 100%;
+                                                    height: 100%;
+                                                    background-color: #fff;
+                                                    transform: translateX(-30px);
+                                                    border-radius: 20px;
+                                                    transition: .3s;
+                                                    box-shadow: 0 0 10px 3px rgb(0, 0, 0, 0.25);
+                                                }
+
+                                                .checkbox:checked~.slider::before {
+                                                    transform: translateX(30px);
+                                                    box-shadow: 0 0 10px 3px rgb(0, 0, 0, 0.25);
+                                                }
+
+                                                .checkbox:checked~.slider {
+                                                    background-color: #2196F3;
+                                                }
+
+                                                .checkbox:active~.slider::before {
+                                                    transform: translate(0);
+                                                }
+                                            </style>
+                                        </div>
                                     </div>
                                 </div>
+                                <div class="form-group text-center">
+                                    <button type="submit" name="submit" class="btn btn-submit btn-gradient">
+                                        Save
+                                    </button>
+                                </div>
                             </div>
-                            <div class="form-group text-center">
-                                <button type="submit" name="submit" class="btn btn-submit btn-gradient">
-                                    Save
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+                        </form>
                     <?php
-                    }else{
+                    } else {
                     ?>
-                    <form method="post">
-                        <div class="login-form">
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-12 col-xs-12">
-                                        <h3 class="oval-text-bd text-center"><?php echo $row['u_email'] ?></h3>
+                        <form method="post">
+                            <div class="login-form">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-12 col-xs-12">
+                                            <h3 class="oval-text-bd text-center"><?php echo $row['u_email'] ?></h3>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-12 col-xs-12">
-                                        <input type="text" name="pswd" class="form-control bdr" placeholder="Enter Your Password *">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-12 col-xs-12">
+                                            <input type="text" name="pswd" class="form-control bdr" placeholder="Enter Your Password *">
+                                        </div>
                                     </div>
                                 </div>
+                                <div class="form-group text-center">
+                                    <button type="submit" name="submit-pass" class="btn btn-submit btn-gradient">
+                                        SUBMIT
+                                    </button>
+                                </div>
                             </div>
-                            <div class="form-group text-center">
-                                <button type="submit" name="submit-pass" class="btn btn-submit btn-gradient">
-                                    SUBMIT
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+                        </form>
                     <?php
                     }
                     ?>
-                    <!-- <form method="post">
-                        <div class="login-form">
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-12 col-xs-12">
-                                        <h2 class="oval-bd text-center"><?php echo $row['u_email'] ?></h2>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-12 col-xs-12">
-                                        <input type="text" name="pswd" class="form-control bdr" placeholder="Enter Your Password *">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group text-center">
-                                <button type="submit" name="submit-pass" class="btn btn-submit btn-gradient">
-                                    SUBMIT
-                                </button>
-                            </div>
-                        </div>
-                    </form> -->
-                    
                 </div>
             </div>
         </div>
