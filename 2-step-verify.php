@@ -43,7 +43,7 @@ include_once("include/navbar.php")
                 <div class="cmt-form">
                     <?php
                     include_once 'backend/database/config.php';
-                    $sql = "SELECT `u_email` FROM `w-users` WHERE `user_id` = '$_SESSION[user_id]'";
+                    $sql = "SELECT `u_email`,`u_password` FROM `w-users` WHERE `user_id` = '$_SESSION[user_id]'";
                     $result = mysqli_query($conn, $sql);
                     if ($result) {
                         $row = mysqli_fetch_assoc($result);
