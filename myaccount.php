@@ -2,8 +2,8 @@
 include_once 'backend/database/config.php';
 
 if (isset($_POST['user-login'])) {
-    $u_useremail = $_POST["u-useremail"];
-    $u_password = $_POST["u-pswd"];
+    $u_useremail = mysqli_real_escape_string($conn, $_POST["u-useremail"]);
+    $u_password = mysqli_real_escape_string($conn, $_POST["u-pswd"]);
 
     $check_login = "SELECT * FROM `w-users` WHERE (`u_username` = '$u_useremail' OR `u_email` = '$u_useremail')";
     $check_login_query = mysqli_query($conn, $check_login);
@@ -45,7 +45,7 @@ include_once("include/navbar.php");
                 </div>
                 <div class="page-content">
                     <p>Sign in to your account</p>
-                    
+
                     <!-- // include_once 'backend/database/config.php';
                     // if (isset($_POST['user-login'])) {
                     //     $u_name = $_POST['u-user'];
@@ -69,7 +69,7 @@ include_once("include/navbar.php");
                     //     }
                     // } -->
 
-                    
+
                     <form class="login-form" method="post" action="myaccount.php">
                         <div class="form-group">
                             <label>Username or email address <span class="f-red">*</span></label>

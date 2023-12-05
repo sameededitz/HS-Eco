@@ -1,9 +1,9 @@
 <?php
 include_once 'backend/database/config.php';
 if (isset($_POST['register-user'])) {
-    $u_username = $_POST["u-username"];
-    $u_email = $_POST["u-email"];
-    $u_password = $_POST["u-password"];
+    $u_username = mysqli_real_escape_string($conn, $_POST["u-username"]);
+    $u_email = mysqli_real_escape_string($conn, $_POST["u-email"]);
+    $u_password = mysqli_real_escape_string($conn, $_POST["u-password"]);
     $u_passwordhash = password_hash($u_password, PASSWORD_DEFAULT);
 
     $message = [];
