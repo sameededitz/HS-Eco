@@ -14,6 +14,7 @@ if (isset($_POST['user-login'])) {
             session_start();
             $_SESSION['user_id'] = $login_row['user_id'];
             $_SESSION['user_name'] = $login_row['u_username'];
+            $_SESSION['user_email'] = $login_row['$u_email'];
             header("location: home.php");
             $message[] = 'Login Successfully';
         } else {
