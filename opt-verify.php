@@ -1,9 +1,50 @@
 <?php
+include_once 'backend/database/config.php';
 session_start();
-
 if (!isset($_SESSION['user_id'])) {
     header("location: home.php");
 }
+
+include('smtp/PHPMailerAutoload.php');
+$user_id = $_SESSION['user_id'];
+$sql2 = "SELECT `u_email` FROM `w-users` WHERE `user_id` = '$user_id'";
+$result = mysqli_query($conn, $sql2);
+if ($result) {
+    $res = mysqli_fetch_assoc($result);
+}
+$to = $res['u_email'];
+$subject = "Verification Code";
+$msg = random_int(100000, 999999);
+smtp_mailer($to, $subject, $msg);
+function smtp_mailer($to, $subject, $msg)
+{
+    $mail = new PHPMailer();
+    $mail->IsSMTP();
+    $mail->SMTPAuth = true;
+    $mail->SMTPSecure = 'tls';
+    $mail->Host = "smtp.gmail.com";
+    $mail->Port = 587;
+    $mail->IsHTML(true);
+    $mail->CharSet = 'UTF-8';
+    //$mail->SMTPDebug = 2; 
+    $mail->Username = "dhcodes0943@gmail.com"; //username
+    $mail->Password = "bdikockorhumcgld";
+    $mail->SetFrom("dhcodes0943@gmail.com"); //username
+    $mail->Subject = $subject;
+    $mail->Body = $msg;
+    $mail->AddAddress($to); //client email
+    $mail->SMTPOptions = array('ssl' => array(
+        'verify_peer' => false,
+        'verify_peer_name' => false,
+        'allow_self_signed' => false
+    ));
+    if (!$mail->Send()) {
+        echo $mail->ErrorInfo;
+    } else {
+        
+    }
+}
+
 ?>
 
 <?php
@@ -54,12 +95,12 @@ include_once("include/navbar.php")
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-12 col-xs-12">
-                                        <input type="text" name="pswd" class="form-control bdr" placeholder="Enter Your Code *">
+                                        <input type="text" name="verify-code" class="form-control bdr" placeholder="Enter Your Code *">
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group text-center">
-                                <button type="submit" name="submit-pass" class="btn btn-submit btn-gradient">
+                                <button type="submit" name="verified" class="btn btn-submit btn-gradient">
                                     SUBMIT
                                 </button>
                             </div>
