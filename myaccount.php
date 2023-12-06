@@ -46,31 +46,6 @@ include_once("include/navbar.php");
                 </div>
                 <div class="page-content">
                     <p>Sign in to your account</p>
-
-                    <!-- // include_once 'backend/database/config.php';
-                    // if (isset($_POST['user-login'])) {
-                    //     $u_name = $_POST['u-user'];
-                    //     $u_pswd = $_POST['u-pswd'];
-                    //     $sql = "SELECT * FROM `w-users` WHERE (`u_username` = '{$u_name}' OR `u_email` = '{$u_name}')";
-                    //     $result = mysqli_query($conn, $sql);
-                    //     $verify = mysqli_fetch_array($result, MYSQLI_ASSOC);
-                    //     if ($verify) {
-                    //         if (password_verify($u_pswd, $verify['u_password'])) {
-                    //             if (mysqli_num_rows($result) > 0) {
-                    //                 session_start();
-                    //                 $_SESSION['user-id'] = $verify['user_id'];
-                    //                 $_SESSION['user-name'] = $verify['u_username'];
-                    //                 echo '<script>window.location.assign("http://localhost/HS-Ecomm/home.php")</script>';
-                    //             } else {
-                    //                 echo "mysqli_error()";
-                    //             }
-                    //         } else {
-                    //             echo "NOT OKAY";
-                    //         }
-                    //     }
-                    // } -->
-
-
                     <form class="login-form" method="post" action="myaccount.php">
                         <div class="form-group">
                             <label>Username or email address <span class="f-red">*</span></label>

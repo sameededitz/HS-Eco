@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="css/owl.theme.default.min.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="css/bootstrap-slider.css">
+    <link rel="stylesheet" href="css/bootstrap-toggle-min.css">
+    <script src="js/bootstrap-toggle-min.js"></script>
     <script src="js/sweet-alert.js"></script>
     <script src="https://kit.fontawesome.com/35430ed787.js" crossorigin="anonymous"></script>
 </head>

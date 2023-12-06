@@ -28,6 +28,15 @@ if ($result) {
         }
     }
 }
+
+$user_id = $_SESSION['user_id'];
+
+$select = "SELECT `2fa_status` FROM `w-users` WHERE `user_id`='$user_id'";
+$select_query = mysqli_query($conn, $select);
+if ($select_query) {
+    $row_status = mysqli_fetch_assoc($select_query);
+}
+
 ?>
 <?php
 include_once("include/navbar.php")
@@ -68,23 +77,33 @@ include_once("include/navbar.php")
                     <?php
                     if (isset($succes_msg)) {
                     ?>
-                        <form method="post">
+                        <form method="post" action="backend/db_users.php">
                             <div class="login-form">
                                 <div class="form-group">
                                     <div class="row" style="display: flex; justify-content:center;">
                                         <div class="col-md-6 col-xs-12" style="display: flex; align-items:center; justify-content:center;">
-                                            <h4 class="oval-text-bd text-center">2-Step Verification</h4>
+                                            <h4 class="oval-text-bd text-center">Status</h4>
                                         </div>
                                         <div class="col-md-4 col-xs-12" style="display: flex; align-items:center; justify-content:center;">
                                             <label class="switch">
-                                                <input type="checkbox" class="checkbox hidden">
+                                                <?php
+                                                if ($row_status['2fa_status'] == 'enabled') {
+                                                ?>
+                                                    <input type="checkbox" name="toggle-2fa" checked class="checkbox hidden">
+                                                    <?php
+                                                }else{
+                                                    ?>
+                                                    <input type="checkbox" name="toggle-2fa" class="checkbox hidden">
+                                                <?php
+                                                }
+                                                ?>
                                                 <div class="slider"></div>
                                             </label>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group text-center">
-                                    <button type="submit" name="submit" class="btn btn-submit btn-gradient">
+                                    <button type="submit" name="save-2fa" class="btn btn-submit btn-gradient">
                                         Save
                                     </button>
                                 </div>
