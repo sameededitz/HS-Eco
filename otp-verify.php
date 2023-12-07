@@ -5,43 +5,30 @@ if (!isset($_SESSION['user_id'])) {
     header("location: home.php");
 }
 
-include('smtp/PHPMailerAutoload.php');
-$user_id = $_SESSION['user_id'];
-$sql2 = "SELECT `u_email` FROM `w-users` WHERE `user_id` = '$user_id'";
-$result = mysqli_query($conn, $sql2);
-if ($result) {
-    $res = mysqli_fetch_assoc($result);
+if (!isset($_SESSION['user_otp_sent'])) {
+} else {
+    $otp_sent = $_SESSION['user_otp_sent'];
+    $otp_set = $_SESSION['user_otp_set'];
+    if ($otp_sent == "true" && $otp_set == "true") {
+        header("location: profile.php");
+    }
 }
-$to = $res['u_email'];
-$subject = "Verification Code";
-$msg = random_int(100000, 999999);
-smtp_mailer($to, $subject, $msg);
-function smtp_mailer($to, $subject, $msg)
-{
-    $mail = new PHPMailer();
-    $mail->IsSMTP();
-    $mail->SMTPAuth = true;
-    $mail->SMTPSecure = 'tls';
-    $mail->Host = "smtp.gmail.com";
-    $mail->Port = 587;
-    $mail->IsHTML(true);
-    $mail->CharSet = 'UTF-8';
-    //$mail->SMTPDebug = 2; 
-    $mail->Username = "dhcodes0943@gmail.com"; //username
-    $mail->Password = "bdikockorhumcgld";
-    $mail->SetFrom("dhcodes0943@gmail.com"); //username
-    $mail->Subject = $subject;
-    $mail->Body = $msg;
-    $mail->AddAddress($to); //client email
-    $mail->SMTPOptions = array('ssl' => array(
-        'verify_peer' => false,
-        'verify_peer_name' => false,
-        'allow_self_signed' => false
-    ));
-    if (!$mail->Send()) {
-        echo $mail->ErrorInfo;
-    } else {
+
+if (isset($_POST['verified'])) {
+    $user_otp = $_POST['verify-code'];
+
+    if ($user_otp == $_SESSION['user_otp']) {
+        $user_id = $_SESSION['user_id'];
+        $toggleValue = 'enabled';
         
+        $sql = "UPDATE `w-users` SET `2fa_status`='$toggleValue' WHERE `user_id`='$user_id'";
+        $result = mysqli_query($conn, $sql);
+        $succes_msg[] = ['text' => 'OTP Correct', 'icon' => 'success'];
+        // $message[] = "password incorrect";
+        $_SESSION['user_otp_set'] = 'true';
+    } else {
+        echo 'invalid';
+        // $success_msg[] = ['text' => 'Invalid OTP', 'icon' => 'success'];
     }
 }
 

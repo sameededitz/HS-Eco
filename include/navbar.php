@@ -89,8 +89,8 @@
             echo '
             <script>
             swal({
-                title: "' . $succes_msg . '",
-                icon: "success",
+                title: "' . $succes_msg ['text']. '",
+                icon: "' . $succes_msg ['icon']. '",
             });
             </script>
         ';
