@@ -106,7 +106,7 @@ include_once("include/navbar.php")
             </div>
             <div class="filter filter-cate">
                 <ul class="wiget-content v2">
-                    <li class="active"><a href="#">My Account</a></li>
+                    <li class="active"><a href="profile.php">My Account</a></li>
                     <li class="active"><a href="#">My Orders</a></li>
                     <li class="active"><a href="#">Address Book</a></li>
                     <li class="active"><a href="#">My Wishlist</a></li>

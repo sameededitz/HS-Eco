@@ -1,7 +1,7 @@
 <?php
 session_start();
-
-if(!isset($_SESSION['user_id'])){
+include_once('backend/database/config.php');
+if (!isset($_SESSION['user_id'])) {
     header("location: home.php");
 }
 ?>
@@ -23,14 +23,14 @@ include_once("include/navbar.php")
             </div>
             <div class="filter filter-cate">
                 <ul class="wiget-content v2">
-                    <li class="active"><a href="#">My Account</a></li>
+                    <li class="active"><a href="profile.php">My Account</a></li>
                     <li class="active"><a href="#">My Orders</a></li>
                     <li class="active"><a href="#">Address Book</a></li>
                     <li class="active"><a href="#">My Wishlist</a></li>
                     <li class="active"><a href="#">Messages</a></li>
                     <li class="active"><a href="#">Accout Details</a></li>
                     <li class="active"><a href="2-step-verify.php">2-Step Verification</a></li>
-                    <li class="active"><a href="#">Become A Seller</a></li>
+                    <li class="active"><a href="seller.php">Become A Seller</a></li>
                     <li class="active"><a href="./backend/db_user_logout.php">Logout</a></li>
 
                 </ul>
@@ -42,69 +42,49 @@ include_once("include/navbar.php")
                     <h1 class="oval-bd">My Account</h1>
                 </div>
                 <div class="cmt-form">
-                    <form action="">
+                    <center>
+                        <div class="form-group" style="margin-bottom: 15px;">
+                            <div class="img-fluid" style=" width: 100px; height: 100px; border-radius: 50%; background-position: center; background-size: cover; background-image: url('https://images.unsplash.com/photo-1679678690998-88c8711cbe5f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxzZWFyY2h8MXx8aG90ZWx8ZW58MHx8MHx8fDA%3D'); ">
+                            </div>
+                        </div>
+                    </center>
+                    <div class="login-form">
+                        <?php
+                        $user_id = $_SESSION['user_id'];
+                        $sql = "SELECT * FROM `w-users` WHERE `user_id` = '$user_id'";
+                        $result = mysqli_query($conn, $sql);
+                        if ($result) {
+                            $show = mysqli_fetch_assoc($result);
+                        }
+                        ?>
                         <div class="form-group">
-                            <div class="img-fluid" style=" width: 90px; height: 90px; border-radius: 50%; background-position: center; background-size: cover; background-image: url('https://images.unsplash.com/photo-1679678690998-88c8711cbe5f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxzZWFyY2h8MXx8aG90ZWx8ZW58MHx8MHx8fDA%3D'); ">
+                            <div class="row">
+                                <div class="col-md-6 col-xs-12">
+                                    <label>Username <span class="f-red">*</span></label>
+                                    <input type="email" readonly id="email" class="form-control bdr" placeholder="Name *" value="<?php echo $show['u_username'] ?>">
+                                </div>
+                                <div class="col-md-6 col-xs-12">
+                                    <label>Email <span class="f-red">*</span></label>
+
+                                    <input type="email" readonly id="email" class="form-control bdr" placeholder="Email *" value="<?php echo $show['u_email'] ?>">
+                                </div>
                             </div>
                         </div>
-                        <div class="login-form">
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-6 col-xs-12">
-                                        <input type="text" id="author" class="form-control bdr" name="comment[author]" value="" placeholder="Name *">
-                                    </div>
-                                    <div class="col-md-6 col-xs-12">
-                                        <input type="email" id="email" class="form-control bdr" placeholder="Email *">
-                                    </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6 col-xs-12">
+                                    <input type="text" class="form-control bdr" placeholder="Username *">
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-6 col-xs-12">
-                                        <input type="text" class="form-control bdr" placeholder="Username *">
-                                    </div>
-                                    <div class="col-md-6 col-xs-12">
-                                        <input type="number" class="form-control bdr" placeholder="Phone Number *">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group text-center">
-                                <button type="submit" class="btn btn-submit btn-gradient">
-                                    Send message
-                                </button>
                             </div>
                         </div>
-                    </form>
-                </div>
-            </div>
-            <!-- <div class="myaccount">
-                <div class="row flex pd" style="justify-content: flex-start;">
-                    <div class="account-element bd-7">
-                        <div class="cmt-title text-center abs">
-                            <h1 class="page-title v1">Change Password</h1>
-                        </div>
-                        <div class="page-content">
-                            <-- <p>Create your very own account</p> -->
-                            <!-- <div class="alert alert-danger">Email Invalid</div> --
-                            <form class="login-form" method="post" action="#">
-                                <div class="form-group">
-                                    <label>Old Password <span class="f-red">*</span></label>
-                                    <input type="text" required id="author2" class="form-control bdr" name="comment[author]" value="">
-                                    <label>New Password <span class="f-red">*</span></label>
-                                    <input type="email" required id="author2" class="form-control bdr" name="comment[author]" value="">
-                                    <label>Confirm New Password <span class="f-red">*</span></label>
-                                    <input type="password" required id="email2" class="form-control bdr" name="comment[email]" value="">
-                                </div>
-                                <div class="flex lr">
-                                    <button type="submit" class="btn btn-submit btn-gradient">
-                                        Change
-                                    </button>
-                                </div>
-                            </form>
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-submit btn-gradient">
+                                Change Profile Info.
+                            </button>
                         </div>
                     </div>
                 </div>
-            </div> -->
+            </div>
             <div class="blog-comment-bottom" style="margin-top: 60px; max-width:480px">
                 <div class="cmt-title text-center abs">
                     <h1 class="oval-bd">Change Password</h1>

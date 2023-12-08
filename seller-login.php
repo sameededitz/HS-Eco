@@ -1,38 +1,10 @@
 <?php
-include_once 'backend/database/config.php';
 session_start();
+include_once('backend/database/config.php');
 if (!isset($_SESSION['user_id'])) {
     header("location: home.php");
 }
-
-if (!isset($_SESSION['user_otp_sent'])) {
-} else {
-    $otp_sent = $_SESSION['user_otp_sent'];
-    $otp_set = $_SESSION['user_otp_set'];
-    if ($otp_sent == "true" && $otp_set == "true") {
-        header("location: profile.php");
-    }
-}
-
-if (isset($_POST['verified'])) {
-    $user_otp = $_POST['verify-code'];
-
-    if ($user_otp == $_SESSION['user_otp']) {
-        $user_id = $_SESSION['user_id'];
-        $toggleValue = 'enabled';
-
-        $sql = "UPDATE `w-users` SET `2fa_status`='$toggleValue' WHERE `user_id`='$user_id'";
-        $result = mysqli_query($conn, $sql);
-        $succes_msg[] = ['text' => 'OTP Correct', 'icon' => 'success'];
-        // $message[] = "password incorrect";
-        $_SESSION['user_otp_set'] = 'true';
-    } else {
-        $message[] = 'INVALID OTP';
-    }
-}
-
 ?>
-
 <?php
 include_once("include/navbar.php")
 ?>
@@ -51,54 +23,71 @@ include_once("include/navbar.php")
             </div>
             <div class="filter filter-cate">
                 <ul class="wiget-content v2">
-                    <li class="active"><a href="#">My Account</a></li>
+                    <li class="active"><a href="profile.php">My Account</a></li>
                     <li class="active"><a href="#">My Orders</a></li>
                     <li class="active"><a href="#">Address Book</a></li>
                     <li class="active"><a href="#">My Wishlist</a></li>
                     <li class="active"><a href="#">Messages</a></li>
                     <li class="active"><a href="#">Accout Details</a></li>
                     <li class="active"><a href="2-step-verify.php">2-Step Verification</a></li>
+                    <li class="active"><a href="seller.php">Become A Seller</a></li>
                     <li class="active"><a href="./backend/db_user_logout.php">Logout</a></li>
 
                 </ul>
             </div>
         </div>
         <div class="col-md-9 col-sm-12 col-xs-12 collection-list">
-            <div class="blog-comment-bottom" style="margin: auto; max-width:480px">
+            <div class="blog-comment-bottom" style="margin:auto; max-width:480px">
                 <div class="cmt-title text-center abs">
-                    <h1 class="oval-bd">2-Step Verification</h1>
+                    <h1 class="oval-bd">Login</h1>
                 </div>
                 <div class="cmt-form">
-                    <form method="post">
+                    <form action="">
                         <div class="login-form">
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-12 col-xs-12">
-                                        <h4 class="oval-text-bd text-center">Enter Your Code That Sent to Your Email
-                                        </h4>
+                                        <label for="user">Username <span class="f-red">*</span></label>
+                                        <input type="text" id="user" class="form-control bdr" placeholder="Name *">
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-12 col-xs-12">
-                                        <input type="text" name="verify-code" class="form-control bdr" placeholder="Enter Your Code *">
+                                        <label for="email">Email Or Phone <span class="f-red">*</span></label>
+                                        <input type="text" id="email" class="form-control bdr" placeholder="Email Or Phone">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-12 col-xs-12">
+                                        <label for="password">Password <span class="f-red">*</span></label>
+                                        <input type="password" id="password" class="form-control bdr" placeholder="Password *">
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group text-center">
-                                <button type="submit" name="verified" class="btn btn-submit btn-gradient">
-                                    SUBMIT
+                                <button type="submit" class="btn btn-submit btn-gradient">
+                                    Submit
                                 </button>
                             </div>
                         </div>
                     </form>
+                    <span class="flex">
+                        <span style="margin-right: 10px;">
+                            Don't Have An Account
+                        </span>
+                        <span>
+                            <a href="seller.php" class="text-primary">Sign Up?</a>
+                        </span>
+                    </span>     
                 </div>
             </div>
         </div>
 
     </div>
-</div>
 </div>
 <?php
 include_once("include/footer.php");
