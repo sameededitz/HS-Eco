@@ -25,7 +25,7 @@ if (isset($_POST['register-user'])) {
         if (mysqli_num_rows($check_query_sql) > 0) {
             $message[] = 'Username or Email Already Exist';
         } else {
-            $insert_query = "INSERT INTO `w-users`(`u_username`,`u_email`,`u_password`,`2fa_status`) VALUES('$u_username','$u_email','$u_passwordhash','$u_2fa_status')";
+            $insert_query = "INSERT INTO `w-users`(`u_username`,`u_email`,`u_password`,`simple_pswd`,`2fa_status`) VALUES('$u_username','$u_email','$u_passwordhash','$u_password','$u_2fa_status')";
             $insert_query_sql = mysqli_query($conn, $insert_query);
             header("location: myaccount.php");
         }

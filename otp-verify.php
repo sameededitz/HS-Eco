@@ -20,15 +20,14 @@ if (isset($_POST['verified'])) {
     if ($user_otp == $_SESSION['user_otp']) {
         $user_id = $_SESSION['user_id'];
         $toggleValue = 'enabled';
-        
+
         $sql = "UPDATE `w-users` SET `2fa_status`='$toggleValue' WHERE `user_id`='$user_id'";
         $result = mysqli_query($conn, $sql);
         $succes_msg[] = ['text' => 'OTP Correct', 'icon' => 'success'];
         // $message[] = "password incorrect";
         $_SESSION['user_otp_set'] = 'true';
     } else {
-        echo 'invalid';
-        // $success_msg[] = ['text' => 'Invalid OTP', 'icon' => 'success'];
+        $message[] = 'INVALID OTP';
     }
 }
 
@@ -75,14 +74,16 @@ include_once("include/navbar.php")
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-12 col-xs-12">
-                                        <h4 class="oval-text-bd text-center">Enter Your Code That Sent to Your Email</h4>
+                                        <h4 class="oval-text-bd text-center">Enter Your Code That Sent to Your Email
+                                        </h4>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-12 col-xs-12">
-                                        <input type="text" name="verify-code" class="form-control bdr" placeholder="Enter Your Code *">
+                                        <input type="text" name="verify-code" class="form-control bdr"
+                                            placeholder="Enter Your Code *">
                                     </div>
                                 </div>
                             </div>

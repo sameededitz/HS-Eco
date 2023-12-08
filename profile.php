@@ -30,6 +30,7 @@ include_once("include/navbar.php")
                     <li class="active"><a href="#">Messages</a></li>
                     <li class="active"><a href="#">Accout Details</a></li>
                     <li class="active"><a href="2-step-verify.php">2-Step Verification</a></li>
+                    <li class="active"><a href="#">Become A Seller</a></li>
                     <li class="active"><a href="./backend/db_user_logout.php">Logout</a></li>
 
                 </ul>

@@ -6,19 +6,6 @@ if (!isset($_SESSION['user_id'])) {
     header("location: home.php");
 }
 
-// if(!isset($_SESSION['user_otp_sent'])){
-
-// }else{
-//     $otp_sent = $_SESSION['user_otp_sent'];
-//     $otp_set = $_SESSION['user_otp_set'];
-//     if($otp_sent == "true" && $otp_set == "false"){
-//         echo "
-//             <script>
-//                 window.location.href = 'otp-verify.php';
-//             </script>
-//         ";
-//     }
-// }
 
 if (isset($_POST['save-2fa'])) {
 
@@ -33,15 +20,11 @@ if (isset($_POST['save-2fa'])) {
         $success_msg[] = ['text' => 'Nothing Changed', 'icon' => 'info'];
     } else {
 
-        // $sql = "UPDATE `w-users` SET `2fa_status`='$toggleValue' WHERE `user_id`='$user_id'";
-        // $result = mysqli_query($conn, $sql);
-
         if ($toggleValue == 'enabled') {
             $otp_code = random_int(100000, 999999);
             $_SESSION['user_otp'] = $otp_code;
             $_SESSION['user_otp_set'] = 'false';
             $_SESSION['user_otp_sent'] = 'false';
-            $user_id = $_SESSION['user_id'];
             $sql2 = "SELECT `u_email` FROM `w-users` WHERE `user_id` = '$user_id'";
             $result = mysqli_query($conn, $sql2);
             if ($result) {
@@ -58,81 +41,20 @@ if (isset($_POST['save-2fa'])) {
                 <h4>It'll Expire in 2 minutes</h4>
             ";
 
-            // Debugging statements
-            // echo "Before smtp_mailer<br>";
-            // var_dump($_SESSION['user_otp_sent']);
-
             if (smtp_mailer($to, $subject, $msg)) {
                 $_SESSION['user_otp_sent'] = 'true';
                 $succes_msg[] = ['text' => 'OTP Sent, Please Check Email', 'icon' => 'success'];
-                // Add a delay or use JavaScript to delay the redirect
-                sleep(2); // This will delay the redirect by 2 seconds
+                sleep(2);
                 header("location: otp-verify.php");
             } else {
-                // $message[] = 'OTP Sent Error';
+                $message[] = 'OTP Sent Error';
             }
-
-            // echo "After smtp_mailer<br>";
-            // var_dump($_SESSION['user_otp_sent']);
         } else {
             $sql = "UPDATE `w-users` SET `2fa_status`='$toggleValue' WHERE `user_id`='$user_id'";
             $result = mysqli_query($conn, $sql);
-            // header("location: profile.php");
         }
     }
 }
-
-
-// if (isset($_POST['save-2fa'])) {
-
-//     $toggleValue = isset($_POST['toggle-2fa']) && $_POST['toggle-2fa'] === 'on' ? 'enabled' : 'disabled';
-//     $user_id = $_SESSION['user_id'];
-
-//     $select = "SELECT `2fa_status` FROM `w-users` WHERE `user_id`='$user_id'";
-//     $select_query = mysqli_query($conn, $select);
-//     $row2 = mysqli_fetch_assoc($select_query);
-
-//     if ($row2['2fa_status'] == $toggleValue) {
-//         $succes_msg[] = ['text' => 'Nothing Changed', 'icon' => 'info'];
-//     } else {
-
-//         $sql = "UPDATE `w-users` SET `2fa_status`='$toggleValue' WHERE `user_id`='$user_id'";
-//         $result = mysqli_query($conn, $sql);
-
-//         if ($toggleValue == 'enabled') {
-//             $otp_code = random_int(100000, 999999);
-//             $_SESSION['user_otp'] = $otp_code;
-//             $_SESSION['user_otp_set'] = 'false';
-//             $_SESSION['user_otp_sent'] = 'false';
-//             $user_id = $_SESSION['user_id'];
-//             $sql2 = "SELECT `u_email` FROM `w-users` WHERE `user_id` = '$user_id'";
-//             $result = mysqli_query($conn, $sql2);
-//             if ($result) {
-//                 $res = mysqli_fetch_assoc($result);
-//             }
-
-//             $otp_ses = $_SESSION['user_otp'];
-//             $to = $res['u_email'];
-//             $subject = "Verification Code";
-
-//             $msg = "
-//                     <h2>Your OTP Code is $otp_ses</h2>
-//                     <br><br>
-//                     <h4>It'll Expire in 2 minutes</h4>
-//             ";
-
-//             if (smtp_mailer($to, $subject, $msg)) {
-//                 $_SESSION['user_otp_sent'] = 'true';
-//                 $succes_msg[] = "OTP Sent, Please Check Your Mail";
-//             }
-//         } else {
-//             header("location: profile.php");
-//         }
-//     }
-// }
-
-
-
 
 $sql = "SELECT `u_email`,`u_password` FROM `w-users` WHERE `user_id` = '$_SESSION[user_id]'";
 $result = mysqli_query($conn, $sql);
@@ -172,6 +94,7 @@ include_once("include/navbar.php")
     <ul class="breadcrumb">
         <li><a href="#">Account</a></li>
         <li class="active">Proflie</li>
+
     </ul>
     <div class="filter-collection-left hidden-lg hidden-md" style="margin-bottom: 55px; border-radius: 8px;">
         <a class="btn" style="border-radius: 5px;">Profile</a>
