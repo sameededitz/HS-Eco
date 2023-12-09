@@ -113,6 +113,7 @@ include_once("include/navbar.php")
                     <li class="active"><a href="#">Messages</a></li>
                     <li class="active"><a href="#">Accout Details</a></li>
                     <li class="active"><a href="2-step-verify.php">2-Step Verification</a></li>
+                    <li class="active"><a href="seller.php">Become A Seller</a></li>
                     <li class="active"><a href="./backend/db_user_logout.php">Logout</a></li>
 
                 </ul>
@@ -174,7 +175,7 @@ include_once("include/navbar.php")
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-md-12 col-xs-12">
-                                            <input type="text" name="pswd" class="form-control bdr" placeholder="Enter Your Password *">
+                                            <input type="password" name="pswd" class="form-control bdr" placeholder="Enter Your Password *">
                                         </div>
                                     </div>
                                 </div>

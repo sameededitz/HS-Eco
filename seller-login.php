@@ -39,19 +39,11 @@ include_once("include/navbar.php")
         <div class="col-md-9 col-sm-12 col-xs-12 collection-list">
             <div class="blog-comment-bottom" style="margin:auto; max-width:480px">
                 <div class="cmt-title text-center abs">
-                    <h1 class="oval-bd">Login</h1>
+                    <h1 class="oval-bd">Seller Login</h1>
                 </div>
                 <div class="cmt-form">
                     <form action="">
                         <div class="login-form">
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-12 col-xs-12">
-                                        <label for="user">Username <span class="f-red">*</span></label>
-                                        <input type="text" id="user" class="form-control bdr" placeholder="Name *">
-                                    </div>
-                                </div>
-                            </div>
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-12 col-xs-12">

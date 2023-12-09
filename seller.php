@@ -4,6 +4,51 @@ include_once('backend/database/config.php');
 if (!isset($_SESSION['user_id'])) {
     header("location: home.php");
 }
+
+if (isset($_POST['sell-register'])) {
+    $sell_username = mysqli_real_escape_string($conn, $_POST["sell-username"]);
+    $sell_email = mysqli_real_escape_string($conn, $_POST["sell-email"]);
+    $sell_password = mysqli_real_escape_string($conn, $_POST["sell-password"]);
+    $sell_phone = mysqli_real_escape_string($conn, $_POST["sell-phone"]);
+    // $sell_term = mysqli_real_escape_string($conn, $_POST["sell-terms"]); // Assuming checkbox value is stored as "on"
+    $sell_simple_pswd = $sell_password; // Storing plain password for later use
+    $sell_passwordhash = password_hash($sell_password, PASSWORD_DEFAULT);
+
+    $message = [];
+
+    if (empty($sell_username) or empty($sell_email) or empty($sell_password) or empty($sell_phone)) {
+        $message[] = 'All Fields are required';
+    }
+
+    if (!filter_var($sell_email, FILTER_VALIDATE_EMAIL)) {
+        $message[] = 'Email Invalid';
+    }
+
+    if (strlen($sell_password) < 8) {
+        $message[] = 'Password Must Be 8 characters Long';
+    }
+
+    if (empty($message)) {
+        $check_query = "SELECT * FROM `seller` WHERE `seller_name`= '$sell_username' OR `seller_email`='$sell_email'";
+        $check_query_sql = mysqli_query($conn, $check_query);
+
+        if (mysqli_num_rows($check_query_sql) > 0) {
+            $message[] = 'Username or Email Already Exist';
+        } else {
+            $insert_query = "INSERT INTO `seller`(`seller_name`, `seller_email`, `sell-simple-pswd`, `seller_paswd`, `seller_phone`) VALUES ('$sell_username','$sell_email','$sell_simple_pswd','$sell_passwordhash','$sell_phone')";
+            $insert_query_sql = mysqli_query($conn, $insert_query);
+
+            if ($insert_query_sql) {
+                echo "INSERTED";
+                header('Location:home.php');
+            } else {
+                $message[] = 'QUERY Error: ' . mysqli_error($conn);
+            }
+        }
+    } else {
+        $message[] = 'Server Error';
+    }
+}
 ?>
 <?php
 include_once("include/navbar.php")
@@ -50,12 +95,12 @@ include_once("include/navbar.php")
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-6 col-xs-12">
-                                        <label for="user">Username <span class="f-red">*</span></label>
-                                        <input type="text" id="user" class="form-control bdr" placeholder="Name *">
+                                        <label for="user">Name <span class="f-red">*</span></label>
+                                        <input type="text" z name="sell-username" id="user" class="form-control bdr" placeholder="Name *">
                                     </div>
                                     <div class="col-md-6 col-xs-12">
                                         <label for="email">Email <span class="f-red">*</span></label>
-                                        <input type="email" id="email" class="form-control bdr" placeholder="Email *">
+                                        <input type="email" name="sell-email" id="email" class="form-control bdr" placeholder="Email *">
                                     </div>
                                 </div>
                             </div>
@@ -63,23 +108,11 @@ include_once("include/navbar.php")
                                 <div class="row">
                                     <div class="col-md-6 col-xs-12">
                                         <label for="password">Password <span class="f-red">*</span></label>
-                                        <input type="password" id="password" class="form-control bdr" placeholder="Password *">
+                                        <input type="password" name="sell-password" id="password" class="form-control bdr" placeholder="Password *">
                                     </div>
                                     <div class="col-md-6 col-xs-12">
                                         <label for="phone">Phone <span class="f-red">*</span></label>
-                                        <input type="tel" id="phone" class="form-control bdr" placeholder="Phone Number *">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-6 col-xs-12">
-                                        <label for="address">Address <span class="f-red">*</span></label>
-                                        <input type="password" id="address" class="form-control bdr" placeholder="Address *">
-                                    </div>
-                                    <div class="col-md-6 col-xs-12">
-                                        <label for="state">State <span class="f-red">*</span></label>
-                                        <input type="text" id="state" class="form-control bdr" placeholder="State *">
+                                        <input type="tel" name="sell-phone" id="phone" class="form-control bdr" placeholder="Phone Number *">
                                     </div>
                                 </div>
                             </div>
@@ -87,7 +120,7 @@ include_once("include/navbar.php")
                                 <div class="row">
                                     <div class="col-md-6 col-xs-12">
                                         <div class="form-check">
-                                            <input style="height: max-content;" class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                            <input style="height: max-content;" class="form-check-input" name="sell-terms" type="checkbox" value="Check" id="defaultCheck1">
                                             <label class="form-check-label" for="defaultCheck1">
                                                 Agree to Terms and Conditions?
                                             </label>
@@ -96,7 +129,7 @@ include_once("include/navbar.php")
                                 </div>
                             </div>
                             <div class="form-group text-center">
-                                <button type="submit" class="btn btn-submit btn-gradient">
+                                <button type="submit" name="sell-register" class="btn btn-submit btn-gradient">
                                     Submit
                                 </button>
                             </div>
@@ -116,6 +149,7 @@ include_once("include/navbar.php")
 
     </div>
 </div>
+
 <?php
 include_once("include/footer.php");
 ?>
