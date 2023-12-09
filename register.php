@@ -5,7 +5,9 @@ if (isset($_POST['register-user'])) {
     $u_email = mysqli_real_escape_string($conn, $_POST["u-email"]);
     $u_password = mysqli_real_escape_string($conn, $_POST["u-password"]);
     $u_passwordhash = password_hash($u_password, PASSWORD_DEFAULT);
-    $u_2fa_status = mysqli_real_escape_string($conn, $_POST["df_2fa_status"]);
+    $u_2fa_status = 'disabled';
+    $u_role = 'customer';
+    $u_email_verify = 'notverified';
 
     $message = [];
     if (empty($u_username) or empty($u_email) or empty($u_password)) {
@@ -25,7 +27,7 @@ if (isset($_POST['register-user'])) {
         if (mysqli_num_rows($check_query_sql) > 0) {
             $message[] = 'Username or Email Already Exist';
         } else {
-            $insert_query = "INSERT INTO `w-users`(`u_username`,`u_email`,`u_password`,`simple_pswd`,`2fa_status`) VALUES('$u_username','$u_email','$u_passwordhash','$u_password','$u_2fa_status')";
+            $insert_query = "INSERT INTO `w-users`(`u_username`,`u_email`,`u_password`,`simple_pswd`,`2fa_status`,`email_verify`,`user_role`) VALUES('$u_username','$u_email','$u_passwordhash','$u_password','$u_2fa_status','$u_email_verify','$u_role')";
             $insert_query_sql = mysqli_query($conn, $insert_query);
             header("location: myaccount.php");
         }
@@ -58,12 +60,11 @@ include_once("include/navbar.php");
                     <form class="login-form" method="post" action="register.php">
                         <div class="form-group">
                             <label>Username <span class="f-red">*</span></label>
-                            <input type="text" id="author2" class="form-control bdr" name="u-username" value="">
+                            <input type="text" id="author2" class="form-control bdr" name="u-username">
                             <label>Email address <span class="f-red">*</span></label>
-                            <input type="email" id="author2" class="form-control bdr" name="u-email" value="">
+                            <input type="email" id="author2" class="form-control bdr" name="u-email">
                             <label>Password <span class="f-red">*</span></label>
-                            <input type="password" id="email2" class="form-control bdr" style="margin-bottom: 3%;" name="u-password" value="">
-                            <input type="hidden" name="df_2fa_status" value="disabled">
+                            <input type="password" id="email2" class="form-control bdr" style="margin-bottom: 3%;" name="u-password">
                         </div>
                         <div class="flex lr">
                             <button type="submit" name="register-user" class="btn btn-submit btn-gradient">

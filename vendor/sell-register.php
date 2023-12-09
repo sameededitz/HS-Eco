@@ -1,7 +1,7 @@
 <?php
 // $add = ;
 session_start();
-include_once 'backend/database/config.php';
+include_once '../backend/database/config.php';
 if (isset($_POST['sell-register'])) {
     $sell_username = mysqli_real_escape_string($conn, $_POST["sell-username"]);
     $sell_email = mysqli_real_escape_string($conn, $_POST["sell-email"]);
@@ -44,5 +44,19 @@ if (isset($_POST['sell-register'])) {
         }
     } else {
         $message[] = 'Server Error';
+    }
+}
+
+
+if (isset($message)) {
+    foreach ($message as $message) {
+        echo '
+            <script>
+            swal({
+                title: "' . $message . '",
+                icon: "error",
+            });
+            </script>
+        ';
     }
 }
