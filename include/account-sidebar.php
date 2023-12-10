@@ -23,7 +23,7 @@ if ($result) {
             <li class="active"><a href="2-step-verify.php">2-Step Verification</a></li>
             <li class="active"><?php
                                 if ($user_role == 'vendor') {
-                                    echo $vendor = '<a href="vendor/">Vendor Dashboard</a>';
+                                    echo $vendor = '<a href="vendor/dash-login.php">Vendor Dashboard</a>';
                                 } else {
                                     echo $become_seller = '<a href="seller.php">Become A Seller</a>';
                                 }

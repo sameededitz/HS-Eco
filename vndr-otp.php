@@ -28,7 +28,7 @@ if (isset($_POST['verified'])) {
         $insert_query_sql = mysqli_query($conn, $insert_query);
 
         if ($insert_query_sql) {
-            header('Location:home.php');
+            header('Location:vendor/dash-login.php');
         } else {
             $message[] = 'QUERY Error: ' . mysqli_error($conn);
         }

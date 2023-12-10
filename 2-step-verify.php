@@ -60,14 +60,14 @@ if (isset($_POST['save-2fa'])) {
 $sql = "SELECT `u_email`,`u_password` FROM `w-users` WHERE `user_id` = '$_SESSION[user_id]'";
 $result = mysqli_query($conn, $sql);
 if ($result) {
-    $row = mysqli_fetch_assoc($result);
+    $rowmail = mysqli_fetch_assoc($result);
     if (isset($_POST['submit-pass'])) {
         $u_password = mysqli_real_escape_string($conn, $_POST["pswd"]);
         if (empty($u_password)) {
             $message[] = 'All Fields are required';
         } else {
             if (mysqli_num_rows($result) > 0) {
-                if (password_verify($u_password, $row['u_password'])) {
+                if (password_verify($u_password, $rowmail['u_password'])) {
                     $succes_msg[] = ['text' => 'Password Correct', 'icon' => 'success'];
                 } else {
                     $message[] = "password incorrect";
@@ -151,7 +151,7 @@ include_once("include/navbar.php")
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-md-12 col-xs-12">
-                                            <h3 class="oval-text-bd text-center"><?php echo $row['u_email'] ?></h3>
+                                            <h3 class="oval-text-bd text-center"><?php echo $rowmail['u_email'] ?></h3>
                                         </div>
                                     </div>
                                 </div>
