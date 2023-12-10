@@ -20,13 +20,14 @@ if (isset($_POST['verified'])) {
     if ($user_otp == $_SESSION['vendor_otp']) {
         $user_id = $_SESSION['user_id'];
         $v_everify = 'verified';
+        $u_role = 'vendor';
+        $u_fullname = $_SESSION['u_fullname'];
+        $u_phone = $_SESSION['u_phone'];
+        $insert_query = "UPDATE `w-users` SET `u_fullname`= '$u_fullname',`u_phone`='$u_phone',`email_verify`='$v_everify',`user_role`='$u_role' WHERE `user_id` = '$user_id'";
 
-        // $insert_query = "INSERT INTO `w-users`(`u_username`,`u_email`,`u_password`, `simple_pswd`,`2fa_status`, `email_verify`, `user_role`) VALUES ('$_SESSION[sell_username]','$_SESSION[u_email]','$_SESSION[sell_password]','$_SESSION[sell_simple_pswd]','disabled','$_SESSION[email_verify]','vendor')";
-        
         $insert_query_sql = mysqli_query($conn, $insert_query);
 
         if ($insert_query_sql) {
-            // echo "INSERTED";
             header('Location:home.php');
         } else {
             $message[] = 'QUERY Error: ' . mysqli_error($conn);

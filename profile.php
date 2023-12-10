@@ -17,7 +17,7 @@ include_once("include/navbar.php")
         <a class="btn" style="border-radius: 5px;">Profile</a>
     </div>
     <div class="row shop-colect" style="margin-bottom: 90px;">
-        <?php include_once 'include/account-sidebar.php'?>
+        <?php include_once 'include/account-sidebar.php' ?>
         <div class="col-md-9 col-sm-12 col-xs-12 collection-list">
             <div class="blog-comment-bottom" style="margin: 0%;">
                 <div class="cmt-title text-center abs">
@@ -42,7 +42,7 @@ include_once("include/navbar.php")
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-6 col-xs-12">
-                                    <label>Username <span class="f-red">*</span></label>
+                                    <label>Name <span class="f-red">*</span></label>
                                     <input type="text" readonly id="email" class="form-control bdr" placeholder="Name *" value="<?php echo $show['u_username'] ?>">
                                 </div>
                                 <div class="col-md-6 col-xs-12">
@@ -55,7 +55,20 @@ include_once("include/navbar.php")
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-6 col-xs-12">
-                                    <input type="text" class="form-control bdr" placeholder="Username *">
+                                    <label>Phone Number <span class="f-red">*</span></label>
+                                    <input type="text" readonly class="form-control bdr" value="<?php echo $show['u_phone'] ?>">
+                                </div>
+                                <div class="col-md-6 col-xs-12">
+                                    <label>2 Step Verifiction Status <span class="f-red">*</span></label>
+                                    <input type="text" readonly class="form-control bdr" value="<?php echo ucfirst($show['2fa_status'])?>">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6 col-xs-12">
+                                    <label>Email Verification <span class="f-red">*</span></label>
+                                    <input type="text" readonly class="form-control bdr" value="<?php echo ucfirst($show['email_verify'])?>">
                                 </div>
                             </div>
                         </div>

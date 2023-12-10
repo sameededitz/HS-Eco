@@ -8,12 +8,13 @@ if (!isset($_SESSION['user_id'])) {
 if (isset($_POST['sell-register'])) {
     $sell_username = mysqli_real_escape_string($conn, $_POST["sell-username"]);
     $sell_phone = mysqli_real_escape_string($conn, $_POST["sell-phone"]);
+    $_SESSION['u_fullname'] = $sell_username;
+    $_SESSION['u_phone'] = $sell_phone;
     $sell_password = mysqli_real_escape_string($conn, $_POST["sell-password"]);
     $sell_cpassword = mysqli_real_escape_string($conn, $_POST["sell-cpassword"]);
     $sell_simple_pswd = $sell_password; // Storing plain password for later use
     $sell_passwordhash = password_hash($sell_password, PASSWORD_DEFAULT);
     $vn_term = isset($_POST['sell-terms']) && $_POST['sell-terms'] === 'on' ? 'enabled' : 'disabled';
-
     if ($vn_term == 'enabled') {
         if ($sell_password != $sell_cpassword) {
             $succes_msg[] = ['text' => 'Passwords Dont Match', 'icon' => 'error'];
@@ -21,7 +22,6 @@ if (isset($_POST['sell-register'])) {
             if (empty($sell_username) or empty($sell_password) or empty($sell_phone)) {
                 $succes_msg[] = ['text' => 'All Fields are required', 'icon' => 'error'];
             }
-
             if (strlen($sell_password) < 8) {
                 $succes_msg[] = ['text' => 'Password Must Be 8 characters Long', 'icon' => 'error'];
             }
@@ -89,8 +89,8 @@ include_once("include/navbar.php")
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-6 col-xs-12">
-                                        <label for="user">Name <span class="f-red">*</span></label>
-                                        <input type="text" z name="sell-username" id="user" class="form-control bdr" placeholder="Name *">
+                                        <label for="user">Full Name <span class="f-red">*</span></label>
+                                        <input type="text" z name="sell-username" id="user" class="form-control bdr" placeholder="Full Name *">
                                     </div>
                                     <div class="col-md-6 col-xs-12">
                                         <label for="phone">Phone <span class="f-red">*</span></label>
