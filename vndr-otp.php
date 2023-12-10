@@ -21,11 +21,12 @@ if (isset($_POST['verified'])) {
         $user_id = $_SESSION['user_id'];
         $v_everify = 'verified';
 
-        $insert_query = "INSERT INTO `w-users`(`u_password`,`simple_pswd`,`2fa_status`,`user_role`) VALUES('$u_username','$u_email','$u_passwordhash','$u_password','$u_2fa_status','$u_role')";
+        // $insert_query = "INSERT INTO `w-users`(`u_username`,`u_email`,`u_password`, `simple_pswd`,`2fa_status`, `email_verify`, `user_role`) VALUES ('$_SESSION[sell_username]','$_SESSION[u_email]','$_SESSION[sell_password]','$_SESSION[sell_simple_pswd]','disabled','$_SESSION[email_verify]','vendor')";
+        
         $insert_query_sql = mysqli_query($conn, $insert_query);
 
         if ($insert_query_sql) {
-            echo "INSERTED";
+            // echo "INSERTED";
             header('Location:home.php');
         } else {
             $message[] = 'QUERY Error: ' . mysqli_error($conn);

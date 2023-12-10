@@ -7,8 +7,7 @@ if (isset($_POST['register-user'])) {
     $u_passwordhash = password_hash($u_password, PASSWORD_DEFAULT);
     $u_2fa_status = 'disabled';
     $u_role = 'customer';
-    $u_email_verify = 'notverified';
-
+    $u_email_verify = 'not-verified';
     $message = [];
     if (empty($u_username) or empty($u_email) or empty($u_password)) {
         $message[] = 'All Fields are required';
@@ -56,7 +55,6 @@ include_once("include/navbar.php");
                 </div>
                 <div class="page-content">
                     <p>Create your very own account</p>
-                    <!-- <div class="alert alert-danger">Email Invalid</div> -->
                     <form class="login-form" method="post" action="register.php">
                         <div class="form-group">
                             <label>Username <span class="f-red">*</span></label>

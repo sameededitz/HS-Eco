@@ -11,16 +11,13 @@ if (isset($_POST['sell-register'])) {
     $sell_password = mysqli_real_escape_string($conn, $_POST["sell-password"]);
     $sell_cpassword = mysqli_real_escape_string($conn, $_POST["sell-cpassword"]);
     $sell_simple_pswd = $sell_password; // Storing plain password for later use
-    
     $sell_passwordhash = password_hash($sell_password, PASSWORD_DEFAULT);
     $vn_term = isset($_POST['sell-terms']) && $_POST['sell-terms'] === 'on' ? 'enabled' : 'disabled';
 
     if ($vn_term == 'enabled') {
-
         if ($sell_password != $sell_cpassword) {
             $succes_msg[] = ['text' => 'Passwords Dont Match', 'icon' => 'error'];
         } else {
-
             if (empty($sell_username) or empty($sell_password) or empty($sell_phone)) {
                 $succes_msg[] = ['text' => 'All Fields are required', 'icon' => 'error'];
             }
@@ -50,7 +47,7 @@ if (isset($_POST['sell-register'])) {
                 $subject = "Verification Code";
 
                 $msg = "
-                <h2>Your Vendor OTP Code is $otp_ses</h2>
+                <h2>Your Vendor OTP Code is $otp_code </h2>
                 <br><br>
                 <h4>It'll Expire in 2 minutes</h4>
             ";
@@ -63,13 +60,11 @@ if (isset($_POST['sell-register'])) {
                 } else {
                     $message[] = 'OTP Sent Error';
                 }
-
             } else {
                 $message[] = 'Server Error';
             }
         }
-    }
-    else{
+    } else {
         $succes_msg[] = ['text' => 'Accept Term', 'icon' => 'error'];
     }
 }
