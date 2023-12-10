@@ -4,6 +4,14 @@ include_once('backend/database/config.php');
 if (!isset($_SESSION['user_id'])) {
     header("location: home.php");
 }
+include_once "backend/database/config.php";
+$user_id = $_SESSION['user_id'];
+$sql = "SELECT `user_role` FROM `w-users` WHERE `user_id` = '$user_id'";
+$result = mysqli_query($conn, $sql);
+if ($result) {
+    $row = mysqli_fetch_assoc($result);
+    $user_role = $row['user_role'];
+}
 ?>
 <?php
 include_once("include/navbar.php")
@@ -21,7 +29,13 @@ include_once("include/navbar.php")
         <div class="col-md-9 col-sm-12 col-xs-12 collection-list">
             <div class="blog-comment-bottom" style="margin: 0%;">
                 <div class="cmt-title text-center abs">
-                    <h1 class="oval-bd">My Account</h1>
+                    <?php
+                    if ($user_role == 'vendor') {
+                        echo '<h1 class="oval-bd">Vendor Account</h1>';
+                    } else {
+                        echo $become_seller = '<h1 class="oval-bd">My Account</h1>';
+                    }
+                    ?>
                 </div>
                 <div class="cmt-form">
                     <center>
@@ -56,11 +70,11 @@ include_once("include/navbar.php")
                             <div class="row">
                                 <div class="col-md-6 col-xs-12">
                                     <label>Phone Number <span class="f-red">*</span></label>
-                                    <input type="text" readonly class="form-control bdr" value="<?php echo $show['u_phone'] ?>">
+                                    <input type="text" readonly placeholder="Phone Not Found" class="form-control bdr" value="<?php echo $show['u_phone'] ?>">
                                 </div>
                                 <div class="col-md-6 col-xs-12">
                                     <label>2 Step Verifiction Status <span class="f-red">*</span></label>
-                                    <input type="text" readonly class="form-control bdr" value="<?php echo ucfirst($show['2fa_status'])?>">
+                                    <input type="text" readonly class="form-control bdr" value="<?php echo ucfirst($show['2fa_status']) ?>">
                                 </div>
                             </div>
                         </div>
@@ -68,7 +82,7 @@ include_once("include/navbar.php")
                             <div class="row">
                                 <div class="col-md-6 col-xs-12">
                                     <label>Email Verification <span class="f-red">*</span></label>
-                                    <input type="text" readonly class="form-control bdr" value="<?php echo ucfirst($show['email_verify'])?>">
+                                    <input type="text" readonly class="form-control bdr" value="<?php echo ucfirst($show['email_verify']) ?>">
                                 </div>
                             </div>
                         </div>
@@ -80,7 +94,7 @@ include_once("include/navbar.php")
                     </div>
                 </div>
             </div>
-            <div class="blog-comment-bottom" style="margin-top: 60px; max-width:480px">
+            <!-- <div class="blog-comment-bottom" style="margin-top: 60px; max-width:480px">
                 <div class="cmt-title text-center abs">
                     <h1 class="oval-bd">Change Password</h1>
                 </div>
@@ -116,7 +130,7 @@ include_once("include/navbar.php")
                         </div>
                     </form>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </div>
