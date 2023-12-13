@@ -58,8 +58,8 @@ include_once 'include/head.php';
                                 ?>
                                 <form class="form-horizontal" method="post">
                                     <div class="mb-3">
-                                        <label class="form-label" for="username">Username</label>
-                                        <input type="text" name="v-username" class="form-control" id="username" placeholder="Enter username">
+                                        <label class="form-label" for="username">Username or Email</label>
+                                        <input type="text" name="v-username" class="form-control" id="username" placeholder="Enter Username Or Email">
                                     </div>
 
                                     <div class="mb-3">
@@ -78,7 +78,7 @@ include_once 'include/head.php';
                                     </div>
 
                                     <div class="mt-4 text-center">
-                                        <a href="pages-recoverpw.html" class="text-muted"><i class="mdi mdi-lock me-1"></i> Forgot your password?</a>
+                                        <a href="pages-recover.php" class="text-muted"><i class="mdi mdi-lock me-1"></i> Forgot your password?</a>
                                     </div>
                                 </form>
                             </div>
