@@ -27,7 +27,7 @@ if (!isset($_SESSION['user_id'])) {
                     <div class="row">
                         <div class="col-12">
                             <div class="page-title-box d-flex align-items-center justify-content-between">
-                                <h4 class="page-title mb-0 font-size-18">Welcome To Your Dashboard <?php echo $_SESSION['vendor_name'] ?></h4>
+                                <h4 style="line-height: 36px;" class="page-title mb-0 font-size-14">Welcome To Your Dashboard <?php echo $_SESSION['vendor_name'] ?></h4>
                             </div>
                         </div>
                     </div>
