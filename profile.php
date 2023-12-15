@@ -4,6 +4,14 @@ include_once('backend/database/config.php');
 if (!isset($_SESSION['user_id'])) {
     header("location: home.php");
 }
+include_once "backend/database/config.php";
+$user_id = $_SESSION['user_id'];
+$sql = "SELECT `user_role` FROM `w-users` WHERE `user_id` = '$user_id'";
+$result = mysqli_query($conn, $sql);
+if ($result) {
+    $row = mysqli_fetch_assoc($result);
+    $user_role = $row['user_role'];
+}
 ?>
 <?php
 include_once("include/navbar.php")
@@ -17,29 +25,17 @@ include_once("include/navbar.php")
         <a class="btn" style="border-radius: 5px;">Profile</a>
     </div>
     <div class="row shop-colect" style="margin-bottom: 90px;">
-        <div class="col-md-3 col-sm-3 col-xs-12 col-left collection-sidebar" id="filter-sidebar">
-            <div class="close-sidebar-collection hidden-lg hidden-md">
-                <span>proflie</span><i class="icon_close ion-close"></i>
-            </div>
-            <div class="filter filter-cate">
-                <ul class="wiget-content v2">
-                    <li class="active"><a href="profile.php">My Account</a></li>
-                    <li class="active"><a href="#">My Orders</a></li>
-                    <li class="active"><a href="#">Address Book</a></li>
-                    <li class="active"><a href="#">My Wishlist</a></li>
-                    <li class="active"><a href="#">Messages</a></li>
-                    <li class="active"><a href="#">Accout Details</a></li>
-                    <li class="active"><a href="2-step-verify.php">2-Step Verification</a></li>
-                    <li class="active"><a href="seller.php">Become A Seller</a></li>
-                    <li class="active"><a href="./backend/db_user_logout.php">Logout</a></li>
-
-                </ul>
-            </div>
-        </div>
+        <?php include_once 'include/account-sidebar.php' ?>
         <div class="col-md-9 col-sm-12 col-xs-12 collection-list">
             <div class="blog-comment-bottom" style="margin: 0%;">
                 <div class="cmt-title text-center abs">
-                    <h1 class="oval-bd">My Account</h1>
+                    <?php
+                    if ($user_role == 'vendor') {
+                        echo '<h1 class="oval-bd">Vendor Account</h1>';
+                    } else {
+                        echo $become_seller = '<h1 class="oval-bd">My Account</h1>';
+                    }
+                    ?>
                 </div>
                 <div class="cmt-form">
                     <center>
@@ -60,7 +56,7 @@ include_once("include/navbar.php")
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-6 col-xs-12">
-                                    <label>Username <span class="f-red">*</span></label>
+                                    <label>Name <span class="f-red">*</span></label>
                                     <input type="text" readonly id="email" class="form-control bdr" placeholder="Name *" value="<?php echo $show['u_username'] ?>">
                                 </div>
                                 <div class="col-md-6 col-xs-12">
@@ -73,7 +69,20 @@ include_once("include/navbar.php")
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-6 col-xs-12">
-                                    <input type="text" class="form-control bdr" placeholder="Username *">
+                                    <label>Phone Number <span class="f-red">*</span></label>
+                                    <input type="text" readonly placeholder="Phone Not Found" class="form-control bdr" value="<?php echo $show['u_phone'] ?>">
+                                </div>
+                                <div class="col-md-6 col-xs-12">
+                                    <label>2 Step Verifiction Status <span class="f-red">*</span></label>
+                                    <input type="text" readonly class="form-control bdr" value="<?php echo ucfirst($show['2fa_status']) ?>">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6 col-xs-12">
+                                    <label>Email Verification <span class="f-red">*</span></label>
+                                    <input type="text" readonly class="form-control bdr" value="<?php echo ucfirst($show['email_verify']) ?>">
                                 </div>
                             </div>
                         </div>
@@ -85,7 +94,7 @@ include_once("include/navbar.php")
                     </div>
                 </div>
             </div>
-            <div class="blog-comment-bottom" style="margin-top: 60px; max-width:480px">
+            <!-- <div class="blog-comment-bottom" style="margin-top: 60px; max-width:480px">
                 <div class="cmt-title text-center abs">
                     <h1 class="oval-bd">Change Password</h1>
                 </div>
@@ -121,7 +130,7 @@ include_once("include/navbar.php")
                         </div>
                     </form>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </div>

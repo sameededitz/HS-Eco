@@ -24,7 +24,10 @@ if (isset($_POST['verified'])) {
         $sql = "UPDATE `w-users` SET `2fa_status`='$toggleValue' WHERE `user_id`='$user_id'";
         $result = mysqli_query($conn, $sql);
         $succes_msg[] = ['text' => 'OTP Correct', 'icon' => 'success'];
-        // $message[] = "password incorrect";
+        sleep(2);
+        if ($succes_msg) {
+            header("location: profile.php");
+        }
         $_SESSION['user_otp_set'] = 'true';
     } else {
         $message[] = 'INVALID OTP';
