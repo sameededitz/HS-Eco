@@ -3,7 +3,8 @@
 
 <?php
 include_once 'include/head.php';
-
+session_start();
+print_r($_SESSION['pass_key']);
 ?>
 
 <body>
@@ -30,7 +31,7 @@ include_once 'include/head.php';
 
                             <div class="p-2">
                                 <?php
-                                session_start();
+                                
                                 if (isset($_POST['code_submit'])) {
                                     $user_code = $_POST['code-verify'];
                                     if ($user_code == $_SESSION['pass_key']) {

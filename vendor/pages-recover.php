@@ -2,7 +2,7 @@
 <html lang="en">
 <?php
 include_once 'include/head.php';
-
+session_start();
 ?>
 
 <body>
@@ -33,64 +33,68 @@ include_once 'include/head.php';
                                 include_once('../smtp/PHPMailerAutoload.php');
                                 require('../smtp/class.smtp.php');
                                 include_once '../backend/database/config.php';
-                                session_start();
+
                                 if (isset($_POST['pass_restro'])) {
-                                    $user_id = $_SESSION['user_id'];
+
                                     $pass_recover = $_POST['pswd-recover'];
-                                    $sql = "SELECT `u_email` FROM `w-users` WHERE `user_id` = '$user_id'";
+                                    $sql = "SELECT `user_id`,`u_email` FROM `w-users` WHERE `u_email` = '$pass_recover'";
                                     $result = mysqli_query($conn, $sql);
-                                    if ($result) {
-                                        $row = mysqli_fetch_assoc($result);
-                                        $email = $row["u_email"];
+                                    $row = mysqli_fetch_assoc($result);
+                                    $email = $row["u_email"];
+                                    if (mysqli_num_rows($result) > 0) {
+                                        $rand_key = random_int(100000, 999999);
+                                        $_SESSION['pass_key'] = $rand_key;
+                                        $to = $email;
+                                        $subject = "Forget Password";
+                                        $msg = '<a href="http://localhost/HS-Ecomm/vendor/forget-password.php" >Click Me</a> <h2>Your Code Is ' . $rand_key . '</h2>';
+                                        function smtp_mailer($to, $subject, $msg)
+                                        {
+                                            $mail = new PHPMailer();
+                                            $mail->IsSMTP();
+                                            $mail->SMTPAuth = true;
+                                            $mail->SMTPSecure = 'tls';
+                                            $mail->Host = "smtp.gmail.com";
+                                            $mail->Port = 587;
+                                            $mail->IsHTML(true);
+                                            $mail->CharSet = 'UTF-8';
+
+                                            $mail->Username = "dhcodes0943@gmail.com"; // Replace with your actual username
+                                            $mail->Password = "kaeorycdnvlophla"; // Replace with your actual password
+                                            $mail->SetFrom("dhcodes0943@gmail.com"); // Replace with your actual email
+                                            $mail->Subject = $subject;
+                                            $mail->Body = $msg;
+                                            $mail->AddAddress($to);
+
+                                            $mail->SMTPOptions = array(
+                                                'ssl' => array(
+                                                    'verify_peer' => false,
+                                                    'verify_peer_name' => false,
+                                                    'allow_self_signed' => false
+                                                )
+                                            );
+
+                                            try {
+                                                if (!$mail->Send()) {
+                                                    throw new Exception($mail->ErrorInfo);
+                                                } else {
+                                                    return true;
+                                                }
+                                            } catch (Exception $e) {
+                                                error_log("Email sending failed: " . $e->getMessage());
+                                                return false;
+                                            }
+                                        }
+                                        if (smtp_mailer($to, $subject, $msg)) {
+                                            header('Location:forget-password.php');
+                                            $_SESSION['user_id'] = $row['user_id'];
+                                        } else {
+                                            echo 'script failed';
+                                        }
+                                    } else {
                                         if (!$email == $pass_recover) {
                                             echo '<div class="alert alert-danger text-center mb-4" role="alert">
                                             Please Enter Correct Email
                                         </div>';
-                                        } else {
-                                            $rand_key = random_int(100000, 999999);
-                                            $_SESSION['pass_key'] = $rand_key;
-                                            $to = $email;
-                                            $subject = "Forget Password";
-                                            $msg = '<a href="http://localhost/HS-Ecomm/vendor/forget-password.php" class="btn btn-outline-primary">Click Me</a> <h2>Your Code Is ' . $rand_key . '</h2>';
-                                            function smtp_mailer($to, $subject, $msg)
-                                            {
-                                                $mail = new PHPMailer();
-                                                $mail->IsSMTP();
-                                                $mail->SMTPAuth = true;
-                                                $mail->SMTPSecure = 'tls';
-                                                $mail->Host = "smtp.gmail.com";
-                                                $mail->Port = 587;
-                                                $mail->IsHTML(true);
-                                                $mail->CharSet = 'UTF-8';
-
-                                                $mail->Username = "dhcodes0943@gmail.com"; // Replace with your actual username
-                                                $mail->Password = "kaeorycdnvlophla"; // Replace with your actual password
-                                                $mail->SetFrom("dhcodes0943@gmail.com"); // Replace with your actual email
-                                                $mail->Subject = $subject;
-                                                $mail->Body = $msg;
-                                                $mail->AddAddress($to);
-
-                                                $mail->SMTPOptions = array(
-                                                    'ssl' => array(
-                                                        'verify_peer' => false,
-                                                        'verify_peer_name' => false,
-                                                        'allow_self_signed' => false
-                                                    )
-                                                );
-
-                                                try {
-                                                    if (!$mail->Send()) {
-                                                        throw new Exception($mail->ErrorInfo);
-                                                    } else {
-                                                        return true;
-                                                    }
-                                                } catch (Exception $e) {
-                                                    error_log("Email sending failed: " . $e->getMessage());
-                                                    return false;
-                                                }
-                                            }
-                                            smtp_mailer($to, $subject, $msg);
-                                            header('Location:forget-password.php');
                                         }
                                     }
                                 }
@@ -131,8 +135,8 @@ include_once 'include/head.php';
         </div>
     </div>
 
-    <?php 
-        include_once 'include/js-link.php';
+    <?php
+    include_once 'include/js-link.php';
     ?>
 
 </body>

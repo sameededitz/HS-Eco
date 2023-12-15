@@ -35,28 +35,29 @@ include_once 'include/head.php';
                                     $user_id = $_SESSION['user_id'];
                                     $pass_password = mysqli_real_escape_string($conn, $_POST["pass"]);
                                     $cnrfm_password = mysqli_real_escape_string($conn, $_POST["cnfrm-pass"]);
-                                    $pass_passwordhash = password_hash($u_password, PASSWORD_DEFAULT);
-                                    // if (empty($pass_password) or empty($cnrfm_password)) {
-                                    //     echo '<div class="alert alert-danger text-center mb-4" role="alert">
-                                    //     All Feilds Are Required
-                                    // </div>';
-                                    // }
-                                    // if (strlen($pass_password) < 8) {
-                                    //     echo '<div class="alert alert-danger text-center mb-4" role="alert">
-                                    //     Password Must Be 8 Digits
-                                    // </div>';
-                                    // }
-                                    // if ($pass_password != $cnrfm_password) {
-                                    //     echo '<div class="alert alert-danger text-center mb-4" role="alert">
-                                    //         Your Password Are Not Match
-                                    //     </div>';
-                                    // } else {
-                                    //     $sql = "UPDATE `w-users` SET `u_password`='$pass_passwordhash' ,`simple_pswd`='$pass_password' WHERE `user_id` = '$user_id'";
-                                    //     $result = mysqli_query($conn, $sql);
-                                    //     if($result){
-                                    //         header('Location:dash-login.php');
-                                    //     }
-                                    // }
+                                    $pass_passwordhash = password_hash($pass_password, PASSWORD_DEFAULT);
+                                    if (empty($pass_password) or empty($cnrfm_password)) {
+                                        echo '<div class="alert alert-danger text-center mb-4" role="alert">
+                                        All Feilds Are Required
+                                    </div>';
+                                    }
+                                    if (strlen($pass_password) < 8) {
+                                        echo '<div class="alert alert-danger text-center mb-4" role="alert">
+                                        Password Must Be 8 Digits
+                                    </div>';
+                                    }
+                                    if ($pass_password != $cnrfm_password) {
+                                        echo '<div class="alert alert-danger text-center mb-4" role="alert">
+                                            Your Password Are Not Match
+                                        </div>';
+                                    } else {
+                                        $sql = "UPDATE `w-users` SET `u_password`='$pass_passwordhash' ,`simple_pswd`='$pass_password' WHERE `user_id` = '$user_id'";
+                                        $result = mysqli_query($conn, $sql);
+                                        if($result){
+                                            // echo 'submit';
+                                            header('Location:dash-login.php');
+                                        }
+                                    }
                                 }
                                 ?>
                                 <form class="form-horizontal" method="post">
