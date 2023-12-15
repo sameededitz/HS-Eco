@@ -173,7 +173,7 @@
                                 <a class="dropdown-item" href="#"><i class="bx bx-lock-open font-size-16 align-middle me-1"></i>
                                     Lock screen</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item text-danger" href="vendor/vendor-logout.php"><i
+                                <a class="dropdown-item text-danger" href="vendor-logout.php"><i
                                         class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i> Logout</a>
                             </div>
                         </div>

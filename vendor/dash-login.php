@@ -45,8 +45,7 @@ include_once 'include/head.php';
                                                 header("location: index.php");
                                             } else {
                                                 echo '<div class="alert alert-danger" role="alert">
-                                                Incorrect Password
-                                          </div>';
+                                                Incorrect Password</div>';
                                             }
                                         } else {
                                             echo '<div class="alert alert-danger" role="alert">

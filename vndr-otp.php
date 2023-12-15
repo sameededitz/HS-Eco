@@ -5,14 +5,14 @@ if (!isset($_SESSION['user_id'])) {
     header("location: home.php");
 }
 
-if (!isset($_SESSION['user_otp_sent'])) {
-} else {
-    $otp_sent = $_SESSION['user_otp_sent'];
-    $otp_set = $_SESSION['user_otp_set'];
-    if ($otp_sent == "true" && $otp_set == "true") {
-        header("location: profile.php");
-    }
-}
+// if (!isset($_SESSION['user_otp_sent'])) {
+// } else {
+//     $otp_sent = $_SESSION['user_otp_sent'];
+//     $otp_set = $_SESSION['user_otp_set'];
+//     if ($otp_sent == "true" && $otp_set == "true") {
+//         header("location: profile.php");
+//     }
+// }
 
 if (isset($_POST['verified'])) {
     $user_otp = $_POST['verify-code'];
@@ -23,7 +23,9 @@ if (isset($_POST['verified'])) {
         $u_role = 'vendor';
         $u_fullname = $_SESSION['u_fullname'];
         $u_phone = $_SESSION['u_phone'];
-        $insert_query = "UPDATE `w-users` SET `u_fullname`= '$u_fullname',`u_phone`='$u_phone',`email_verify`='$v_everify',`user_role`='$u_role' WHERE `user_id` = '$user_id'";
+        $sell_passwordhash = $_SESSION['u_newpass'];
+        $simple_password = $_SESSION['u_simpass'];
+        $insert_query = "UPDATE `w-users` SET `u_fullname`= '$u_fullname',`u_phone`='$u_phone',`email_verify`='$v_everify',`user_role`='$u_role',`u_password`='$sell_passwordhash', `simple_pswd`='$simple_password' WHERE `user_id` = '$user_id'";
 
         $insert_query_sql = mysqli_query($conn, $insert_query);
 

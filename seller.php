@@ -8,8 +8,6 @@ if (!isset($_SESSION['user_id'])) {
 if (isset($_POST['sell-register'])) {
     $sell_username = mysqli_real_escape_string($conn, $_POST["sell-username"]);
     $sell_phone = mysqli_real_escape_string($conn, $_POST["sell-phone"]);
-    $_SESSION['u_fullname'] = $sell_username;
-    $_SESSION['u_phone'] = $sell_phone;
     $sell_password = mysqli_real_escape_string($conn, $_POST["sell-password"]);
     $sell_cpassword = mysqli_real_escape_string($conn, $_POST["sell-cpassword"]);
     $sell_simple_pswd = $sell_password; // Storing plain password for later use
@@ -54,6 +52,10 @@ if (isset($_POST['sell-register'])) {
 
                 if (smtp_mailer($to, $subject, $msg)) {
                     $_SESSION['user_otp_sent'] = 'true';
+                    $_SESSION['u_fullname'] = $sell_username;
+                    $_SESSION['u_phone'] = $sell_phone;
+                    $_SESSION['u_newpass'] = $sell_passwordhash;
+                    $_SESSION['u_simpass'] = $sell_password;
                     $succes_msg[] = ['text' => 'OTP Sent, Please Check Email', 'icon' => 'success'];
                     sleep(2);
                     header("location: vndr-otp.php");
