@@ -8,10 +8,8 @@
             </div>
 
             <div class="mt-3">
-
                 <a href="#" class="text-body fw-medium font-size-16">Patrick Becker</a>
                 <p class="text-muted mt-1 mb-0 font-size-13">UI/UX Designer</p>
-
             </div>
         </div>
 
@@ -26,40 +24,6 @@
                         <span>Dashboard</span>
                     </a>
                 </li>
-                <li>
-                    <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="mdi mdi-flip-horizontal"></i>
-                        <span>Layouts</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="true">
-                        <li><a href="javascript: void(0);" class="has-arrow">Vertical</a>
-                            <ul class="sub-menu" aria-expanded="true">
-                                <li><a href="layouts-compact-sidebar.html">Compact Sidebar</a></li>
-                                <li><a href="layouts-icon-sidebar.html">Icon Sidebar</a></li>
-                                <li><a href="layouts-boxed.html">Boxed Layout</a></li>
-                                <li><a href="layouts-preloader.html">Preloader</a></li>
-                            </ul>
-                        </li>
-
-                        <li><a href="javascript: void(0);" class="has-arrow">Horizontal</a>
-                            <ul class="sub-menu" aria-expanded="true">
-                                <li><a href="layouts-horizontal.html">Horizontal</a></li>
-                                <li><a href="layouts-hori-topbarlight.html">Topbar Light</a></li>
-                                <li><a href="layouts-hori-boxed.html">Boxed Layout</a></li>
-                                <li><a href="layouts-hori-preloader.html">Preloader</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-
-                </li>
-
-                <li>
-                    <a href="calendar.html" class=" waves-effect">
-                        <i class="mdi mdi-calendar-text"></i>
-                        <span>Calendar</span>
-                    </a>
-                </li>
-
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="mdi mdi-inbox-full"></i>
