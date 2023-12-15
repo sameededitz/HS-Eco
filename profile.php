@@ -4,11 +4,7 @@ include_once('backend/database/config.php');
 if (!isset($_SESSION['user_id'])) {
     header("location: home.php");
 }
-<<<<<<< HEAD
-
-=======
 include_once "backend/database/config.php";
->>>>>>> ce41ce33ac5da7974772fe211ee0821290601c3d
 $user_id = $_SESSION['user_id'];
 $sql = "SELECT `user_role` FROM `w-users` WHERE `user_id` = '$user_id'";
 $result = mysqli_query($conn, $sql);
